@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estatística Descritiva</title>
+  </head>
+  <body>
+    <p>
+      Nome da Variável
+      <input type="text" id="variavel" placeholder="Nome da variável" />
+    </p>
+    <p>
+      Dados para Análise
+      <input type="text" id="Dados" placeholder="Dados separados por ;" />
+    </p>
+
+    <button>Importar Dados</button>
+    <p>
+      <input type="radio" name="opcao" id="amostra" value="amostra" checked />
+      Amostra
+      <input type="radio" name="opcao" id="populacao" value="populacao" />
+      População
+    </p>
+    <p>
+      <label for="tipoVariavel"> Escolha o tipo de variável</label>
+      <select name="tipoVariavel" id="tipoVariavel">
+        <option value="vqn">Variável Qualitativa Nominal</option>
+        <option value="vqo">Variável Qualitativa Ordinal</option>
+        <option value="vqd">Variável Quantitativa Discreta</option>
+        <option value="vqc">Variável Quantitativa Continua</option>
+      </select>
+      <button>Calcular</button>
+    </p>
+  </body>
+</html>
