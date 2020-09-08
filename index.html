@@ -9,11 +9,11 @@
   <body>
     <p>
       Nome da Variável
-      <input type="text" id="variavel" placeholder="Nome da variável" />
+      <input type="text" id="nome_variavel" placeholder="Nome da variável" />
     </p>
     <p>
       Dados para Análise
-      <input type="text" id="Dados" placeholder="Dados separados por ;" />
+      <input type="text" id="dados_variavel" placeholder="Dados separados por ;" />
     </p>
     <input type="file" name="upload-csv" id="arquivo"/><br>
     <button id="btn-upload-csv" onclick="lerCSV()">Ler os dados do arquivo</button><br>
@@ -25,7 +25,7 @@
     </p>
     <p>
       <label for="tipoVariavel"> Escolha o tipo de variável</label>
-      <select name="tipoVariavel" id="tipoVariavel">
+      <select name="tipoVariavel" id="tipo_tabela" onchange="inserirDados()">
         <option value="vqn">Variável Qualitativa Nominal</option>
         <option value="vqo">Variável Qualitativa Ordinal</option>
         <option value="vqd">Variável Quantitativa Discreta</option>
