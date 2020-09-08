@@ -13,14 +13,7 @@
         let tipo_tabela = document.getElementById("tipo_tabela").value;
         limparResultados();
   
-        if (tipo_tabela !== "") {
-          up_input.style.display = 'block';
-          up_botao.style.display = 'block';
-          label.style.display = 'block';
-          nome.style.display = 'block';
-          label_dados.style.display = 'block';
-          dados.style.display = 'block';
-          botao.style.display = 'block';
+       
       
           if (tipo_tabela === "nominal"){
             nome_ordem.style.display = 'none';
