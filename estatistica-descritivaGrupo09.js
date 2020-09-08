@@ -6,8 +6,6 @@
         let up_input = document.getElementById("arquivo");
         let up_botao = document.getElementById("btn-upload-csv");
         let nome = document.getElementById("nome_variavel");
-        let label = document.getElementById("label_nome")
-        let label_dados = document.getElementById("label_dados");
         let dados = document.getElementById("dados_variavel");
         let botao = document.getElementById("calcular"); 
         let tipo_tabela = document.getElementById("tipo_tabela").value;
@@ -34,9 +32,7 @@
         } else {
           up_input.style.display = 'none';
           up_botao.style.display = 'none';
-          label.style.display = 'none';
           nome.style.display = 'none';
-          label_dados.style.display = 'none';
           dados.style.display = 'none';
           botao.style.display = 'none';
           nome_ordem.style.display = 'none';
