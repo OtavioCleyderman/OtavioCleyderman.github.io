@@ -31,57 +31,68 @@
         <option value="vqd">Variável Quantitativa Discreta</option>
         <option value="vqc">Variável Quantitativa Continua</option>
       </select>
-      <button>Calcular</button>
-    </p>
-                    <div>
-                    <br>
-                    <label id="nome_tabela"></label>
-                </div>
-                <br>
+     <label for="ordem_valores" id="nome_ordem" style="display: none"
+      >Qual a ordem desejada:</label
+    >
+    <input
+      type="text"
+      size="100"
+      id="ordem_valores"
+      name="ordem_valores"
+      placeholder="Ordem dos valores separados por ;"
+      style="display: none"
+    />
+    <button id="calcular" onclick="calcular()" style="display: none">
+      Calcular
+    </button>
+    <div>
+      <br />
+      <label id="nome_tabela"></label>
+    </div>
+    <br />
 
-                <div id="div_tabela_discreta_nominal_ordinal" style="display:none">
-                    <table border ="2">
-                        <thead>
-                            <tr>
-                                <th>Variavel</th>
-                                <th>FI</th>
-                                <th>FR%</th>
-                                <th>FAC</th>
-                                <th>FAC%</th>
-                            </tr>
-                        </thead>
-                        <tbody id="discreta_nominal_ordinal">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div id="div_tabela_continua" style="display:none">
-                    <table border ="2">
-                        <thead>
-                            <tr>
-                                <th>Variavel</th>
-                                <th>FI</th>
-                                <th>FR%</th>
-                                <th>FAC</th>
-                                <th>FAC%</th>
-                                <th>XI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela_continua">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-                    <br>
-                    <div id="texto_media"></div>
-                    <div id="texto_moda"></div>
-                    <div id="texto_mediana"></div>
-                    <div id="texto_desvio_padrao"></div>
-                    <div id="texto_coeficiente_variacao"></div>
-                </div>
-                <div style="top:60px; left:10px; width:600px; height:300px;" id="container_grafico">
-                    <canvas id="myChart"></canvas>
-                </div>
+    <div id="div_tabela_discreta_nominal_ordinal" style="display: none">
+      <table border="2">
+        <thead>
+          <tr>
+            <th>Variavel</th>
+            <th>FI</th>
+            <th>FR%</th>
+            <th>FAC</th>
+            <th>FAC%</th>
+          </tr>
+        </thead>
+        <tbody id="discreta_nominal_ordinal"></tbody>
+      </table>
+    </div>
+    <div id="div_tabela_continua" style="display: none">
+      <table border="2">
+        <thead>
+          <tr>
+            <th>Variavel</th>
+            <th>FI</th>
+            <th>FR%</th>
+            <th>FAC</th>
+            <th>FAC%</th>
+            <th>XI</th>
+          </tr>
+        </thead>
+        <tbody id="tabela_continua"></tbody>
+      </table>
+    </div>
+    <div>
+      <br />
+      <div id="texto_media"></div>
+      <div id="texto_moda"></div>
+      <div id="texto_mediana"></div>
+      <div id="texto_desvio_padrao"></div>
+      <div id="texto_coeficiente_variacao"></div>
+    </div>
+    <div
+      style="top: 60px; left: 10px; width: 600px; height: 300px"
+      id="container_grafico"
+    >
+      <canvas id="myChart"></canvas>
+    </div>
   </body>
 </html>
