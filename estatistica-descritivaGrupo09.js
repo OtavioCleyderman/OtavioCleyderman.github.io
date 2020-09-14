@@ -693,6 +693,43 @@ function criarTabelaOrd() {
     linha.appendChild(campo_fa_porcento);
     corpo.appendChild(linha);
   });
+  gerarGraficoQualitativaOrdinal();
+}
+
+//Função geradora do grafico //
+function gerarGraficoQualitativaOrdinal() {
+  array_valores = tratamentoDeDadosOrdinal();
+  array_label = [];
+  array_data = [];
+  colors = [];
+
+  // Pode se gerar as cores tambem aqui //
+  array_valores.forEach((e) => {
+    array_label.push(e.valor);
+    array_data.push(e.fr_porcento);
+    colors.push(getRandomColor());
+  });
+
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let nome = document.getElementById('nome_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let ctx = document.getElementById('myChart');
+  let grafico = new Chart(ctx, {
+    // Tipo de grafico //
+    type: 'pie',
+    data: {
+      labels: array_label,
+      datasets: [
+        {
+          label: nome,
+          backgroundColor: colors,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          data: array_data,
+        },
+      ],
+    },
+  });
 }
 
 // Função auxiliar de ordenação
