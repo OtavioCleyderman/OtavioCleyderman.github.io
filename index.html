@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src='estatistica-descritivaGrupo09.js'></script>
+    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="estatistica-descritivaGrupo09.js"></script>
     <title>Estatística Descritiva</title>
   </head>
   <body>
@@ -13,10 +15,16 @@
     </p>
     <p>
       Dados para Análise
-      <input type="text" id="dados_variavel" placeholder="Dados separados por ;" />
+      <input
+        type="text"
+        id="dados_variavel"
+        placeholder="Dados separados por ;"
+      />
     </p>
-    <input type="file" name="upload-csv" id="arquivo"/><br>
-    <button id="btn-upload-csv" onclick="lerCSV()">Ler os dados do arquivo</button><br>
+    <input type="file" name="upload-csv" id="arquivo" /><br />
+    <button id="btn-upload-csv" onclick="lerCSV()">
+      Ler os dados do arquivo</button
+    ><br />
     <p>
       <input type="radio" name="opcao" id="amostra" value="amostra" checked />
       Amostra
@@ -31,18 +39,20 @@
         <option value="discreta">Variável Quantitativa Discreta</option>
         <option value="continua">Variável Quantitativa Continua</option>
       </select>
-     <label for="ordem_valores" id="nome_ordem" style="display:none">Qual a ordem desejada:</label>
-    <input
-      type="text"
-      size="100"
-      id="ordem_valores"
-      name="ordem_valores"
-      placeholder="Ordem dos valores separados por ;"
-      style="display: none"
-    />
-    <button id="calcular" onclick="calcular()">
-      Calcular
-    </button>
+      <label for="ordem_valores" id="nome_ordem" style="display: none"
+        >Qual a ordem desejada:</label
+      >
+      <input
+        type="text"
+        size="100"
+        id="ordem_valores"
+        name="ordem_valores"
+        placeholder="Ordem dos valores separados por ;"
+        style="display: none"
+      />
+      <button id="calcular" onclick="calcular()">Calcular</button>
+    </p>
+
     <div>
       <br />
       <label id="nome_tabela"></label>
