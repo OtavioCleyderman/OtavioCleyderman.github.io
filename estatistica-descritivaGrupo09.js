@@ -301,14 +301,13 @@ function criarTabelaNom() {
     'div_tabela_discreta_nominal_ordinal'
   );
   div_tabela_discreta.style.display = 'block';
+
   let corpo = document.querySelector('tbody');
-  //limpar tela
+  // Limpar a tela //
   corpo.innerHTML = '';
   array_valores = tratamentoDeDadosNominal();
-  nome_tabela.innerHTML = 'Qualitativa Nominal';
-  //mostrar moda na tela
-  let texto_moda = document.getElementById('texto_moda');
-  texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
+  // O que existe aqui é um loop que cria uma linha <tr>, com algumas colunas (células) <td> //
+  // Que posteriormente poderá ser usado aqui abaixo //
   array_valores.forEach((e) => {
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
@@ -333,6 +332,7 @@ function criarTabelaNom() {
     linha.appendChild(campo_fa_porcento);
     corpo.appendChild(linha);
   });
+
   gerarGraficoQualitativaNominal();
 }
 
