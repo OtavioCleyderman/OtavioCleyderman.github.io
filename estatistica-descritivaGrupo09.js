@@ -245,6 +245,54 @@ function criarTabelaDiscreta() {
     linha.appendChild(campo_fa_porcento);
     corpo.appendChild(linha);
   });
+  gerarGraficoDiscreta();
+}
+
+// Função geradora do gráfico //
+function gerarGraficoDiscreta() {
+  array_valores = tratamentoDeDados();
+  array_label = [];
+  array_data = [];
+  colors = [];
+
+  // Pode se gerar as cores tambem por aqui //
+  array_valores.forEach((e) => {
+    array_label.push(e.valor);
+    array_data.push(Math.round(e.fr_porcento));
+    colors.push(getRandomColor());
+  });
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let nome = document.getElementById('nome_variavel').value;
+  let array_dados_variavel = dadosVar.split(';').map(Number);
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let ctx = document.getElementById('myChart');
+  let grafico = new Chart(ctx, {
+    // Tipo grafico //
+    type: 'bar',
+    // Data para o grafico //
+    data: {
+      labels: array_label,
+      datasets: [
+        {
+          label: nome,
+          backgroundColor: colors,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          data: array_data,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
 }
 
 function criarTabelaNom() {
@@ -284,6 +332,43 @@ function criarTabelaNom() {
     linha.appendChild(campo_fa);
     linha.appendChild(campo_fa_porcento);
     corpo.appendChild(linha);
+  });
+  gerarGraficoQualitativaNominal();
+}
+
+function gerarGraficoQualitativaNominal() {
+  array_valores = tratamentoDeDadosNominal();
+  array_label = [];
+  array_data = [];
+  colors = [];
+
+  // Pode se gerar as cores tambem aqui //
+  array_valores.forEach((e) => {
+    array_label.push(e.valor);
+    array_data.push(e.fr_porcento);
+    colors.push(getRandomColor());
+  });
+
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let nome = document.getElementById('nome_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let ctx = document.getElementById('myChart');
+  let grafico = new Chart(ctx, {
+    // Tipo de grafico //
+    type: 'pie',
+    // Data para o grafico //
+    data: {
+      labels: array_label,
+      datasets: [
+        {
+          label: nome,
+          backgroundColor: colors,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          data: array_data,
+        },
+      ],
+    },
   });
 }
 
@@ -423,6 +508,51 @@ function criarTabelaContinua() {
     linha.appendChild(campo_fa_porcento);
     linha.appendChild(campo_xi);
     corpo.appendChild(linha);
+  });
+  gerarGraficoContinua();
+}
+
+function gerarGraficoContinua() {
+  let array_valores = tratamentoDeDadosContinua();
+  let array_label = [];
+  let array_data = [];
+  let nome_variavel = document.getElementById('nome_variavel').value;
+
+  array_valores.forEach((e) => {
+    array_label.push(e.valor);
+    array_data.push(e.qtde);
+  });
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: array_label,
+      datasets: [
+        {
+          label: nome_variavel,
+          data: array_data,
+          backgroundColor: getRandomColor(),
+        },
+      ],
+    },
+    options: {
+      scales: {
+        xAxes: [
+          {
+            categoryPercentage: 1.0,
+            barPercentage: 1.0,
+          },
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
   });
 }
 
