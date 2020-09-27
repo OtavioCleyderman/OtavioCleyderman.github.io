@@ -689,7 +689,7 @@ function criarTabelaContinua() {
   texto_media.innerHTML = `Media: ${media_continua.toFixed(2)} <br>`;
   //mostrar moda
   let texto_moda = document.getElementById('texto_moda');
-  texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <b>`;
+  texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <br>`;
   // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
   // que depois dá pra usar aqui abaixo
   // let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);
