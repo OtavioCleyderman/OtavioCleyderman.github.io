@@ -102,5 +102,40 @@
     >
       <canvas id="myChart"></canvas>
     </div>
+    <div>
+      <select
+        name="tipo_separatriz"
+        id="tipo_separatriz"
+        style="display: none"
+        onchange="mostrarOpcaoSeparatriz()"
+      >
+        <option value="" selected>Selecione uma opção</option>
+        <option value="quartil">Quartil</option>
+        <option value="quintil">Quintil</option>
+        <option value="decil">Decil</option>
+        <option value="percentil">Percentil</option>
+      </select>
+      <button
+        id="calcular_separatriz"
+        name="calculcar_separatriz"
+        onclick="calcularSeparatriz()"
+      >
+        Calcular separatriz
+      </button>
+
+      <input
+        name="valor_separatriz"
+        id="valor_separatriz"
+        placeholder=""
+        style="display: none"
+        size="50"
+      />
+      <input
+        name="valor_separatriz_calculado"
+        id="valor_separatriz_calculado"
+        style="display: none"
+        size="50"
+      />
+    </div>
   </body>
 </html>
