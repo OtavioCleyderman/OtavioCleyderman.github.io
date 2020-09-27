@@ -10,6 +10,7 @@ function inserirDados() {
   let botao = document.getElementById('calcular');
   let tipo_tabela = document.getElementById('tipo_tabela').value;
   limparResultados();
+  mostrarSelectSeparatrizes(false);
 
   if (tipo_tabela === 'nominal') {
     nome_ordem.style.display = 'none';
@@ -35,6 +36,30 @@ function inserirDados() {
     nome_ordem.style.display = 'none';
     ordem.style.display = 'none';
   }*/
+}
+
+function mostrarSelectSeparatrizes(mostrar = true) {
+  let tipo_separatriz = document.getElementById('tipo_separatriz');
+  tipo_separatriz.style.display = mostrar ? 'block' : 'none';
+}
+
+// Após selecionar o tipo de separatriz mostrar as opções de cálculo
+function mostrarOpcaoSeparatriz() {
+  let valor_separatriz = document.getElementById('valor_separatriz');
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+  valor_separatriz.style.display = 'block';
+
+  if (tipo_separatriz === 'quartil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 4';
+  } else if (tipo_separatriz === 'quintil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 5';
+  } else if (tipo_separatriz === 'decil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 10';
+  } else if (tipo_separatriz === 'percentil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 100';
+  } else if (tipo_separatriz === '') {
+    valor_separatriz.style.display = 'none';
+  }
 }
 
 function calcular() {
@@ -213,14 +238,48 @@ function criarTabelaDiscreta() {
     'div_tabela_discreta_nominal_ordinal'
   );
   div_tabela_discreta.style.display = 'block';
+
+  const tipo_desvio = document.getElementById('tipo_desvio').value;
   let corpo = document.querySelector('tbody');
   //limpar tela
   corpo.innerHTML = '';
   let array_valores = tratamentoDeDados();
+  let media_discreta = media(array_valores);
+  let valor_moda = moda();
+  let valor_mediana = mediana();
+  let desvio_padrao;
+  if (tipo_desvio == 'populacao') {
+    desvio_padrao = desvioPadraoPopulacao(array_valores, media_discreta);
+  } else if (tipo_desvio == 'amostra') {
+    desvio_padrao = desvioPadraoAmostra(array_valores, media_discreta);
+  }
+  coeficiente_variacao = coeficienteVariacaoDiscreta(
+    desvio_padrao,
+    media_discreta
+  );
   //mostrar nome tabela
   let nome_tabela = document.getElementById('nome_tabela');
 
   nome_tabela.innerHTML = 'Quantitativa Discreta';
+  //motrar mediana
+  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
+  //motrar media
+  texto_media.innerHTML = `Media: ${media_discreta.toFixed(2)} <br>`;
+  //mostrar moda
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <b>`;
+  //motrar desvio padrao
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = `Desvio Padrão ${desvio_padrao} <b>`;
+  //mostrar coeficiente de varancia
+  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
+  texto_coeficiente.innerHTML = `Coeficiente de Variacao ${coeficiente_variacao.toFixed(
+    2
+  )} <b>`;
+  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
+  // que depois dá pra usar aqui abaixo
+  // let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);
+  //   console.log(soma_total);
   array_valores.forEach((e) => {
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
@@ -295,6 +354,111 @@ function gerarGraficoDiscreta() {
   });
 }
 
+function media(valores) {
+  // Cálculo de média para variável discreta/continua
+  let total_qtde = valores.reduce(
+    (acumulador, item) => acumulador + item.qtde,
+    0
+  );
+  let total_valores = valores.reduce(
+    (acumulador, item) => acumulador + item.valor * item.qtde,
+    0
+  );
+  let media = total_valores / total_qtde;
+
+  return media;
+}
+
+//calculando moda
+function moda() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';').map(Number);
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let entrada = array_dados_variavel;
+  let maior = null;
+  let ocorrenciasMaior = -1;
+  let contagem = 1;
+  for (let i = 1; i <= entrada.length; i++) {
+    if (i < entrada.length && entrada[i] == entrada[i - contagem]) contagem++;
+    else if (contagem > ocorrenciasMaior) {
+      maior = entrada[i - 1];
+      ocorrenciasMaior = contagem;
+    }
+  }
+
+  return maior;
+}
+function mediana() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';').map(Number);
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let md = array_dados_variavel;
+  let valor_mediana = '';
+  var posicao = md.length / 2;
+  let qtde = md.length;
+  let pos_elemento = '';
+  //console.log(posicao);
+  if (qtde % 2 == 0) {
+    if (md[posicao - 1] == md[posicao]) {
+      //Se for igual ele já declara que aquela é a mediana
+      valor_mediana = md[posicao];
+      return valor_mediana;
+    } else {
+      //Se não for aqui ele mostra o calculo da mediana
+      valor_mediana = (md[posicao] + md[posicao - 1]) / 2;
+      return valor_mediana;
+    }
+  } else {
+    //Se a posição for impar , ele da o numero da posição direto arredondando a posição com a função pronta math.round, mostrando a posicao do elemento
+    pos_elemento = Math.ceil(posicao) - 1;
+    //pegar a posicao do elemento e mostrar o valor do elemento
+    return md[pos_elemento];
+  }
+}
+function desvioPadraoAmostra(valores, media) {
+  // somatorio fi
+  let somatorio_fi = valores.reduce(
+    (acumulador, item) => acumulador + item.qtde,
+    0
+  );
+
+  let somatorio_valores = valores.reduce(
+    (acumulador, item) =>
+      acumulador + Math.pow(item.valor - media, 2) * item.qtde,
+    0
+  );
+
+  let desvio_padrao = Math.sqrt(somatorio_valores / (somatorio_fi - 1)).toFixed(
+    2
+  );
+
+  return desvio_padrao;
+}
+
+function desvioPadraoPopulacao(valores, media) {
+  // somatorio fi
+  let somatorio_fi = valores.reduce(
+    (acumulador, item) => acumulador + item.qtde,
+    0
+  );
+
+  let somatorio_valores = valores.reduce(
+    (acumulador, item) =>
+      acumulador + Math.pow(item.valor - media, 2) * item.qtde,
+    0
+  );
+
+  let desvio_padrao = Math.sqrt(somatorio_valores / somatorio_fi).toFixed(2);
+
+  return desvio_padrao;
+}
+
+function coeficienteVariacaoDiscreta(desvio_padrao, media) {
+  let cv = Math.round((desvio_padrao / media) * 100);
+
+  return cv;
+}
+
 function criarTabelaNom() {
   limparResultados();
   let div_tabela_discreta = document.getElementById(
@@ -303,11 +467,29 @@ function criarTabelaNom() {
   div_tabela_discreta.style.display = 'block';
 
   let corpo = document.querySelector('tbody');
-  // Limpar a tela //
+  //limpar tela
   corpo.innerHTML = '';
   array_valores = tratamentoDeDadosNominal();
-  // O que existe aqui é um loop que cria uma linha <tr>, com algumas colunas (células) <td> //
-  // Que posteriormente poderá ser usado aqui abaixo //
+  valor_moda = modaOrdinal();
+  let valor_mediana = medianaNominal();
+  //mostrar mediana na tela
+  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
+  //mostrar media na tela
+  texto_media.innerHTML = 'Media: Nao tem <br>';
+  // nome tabela
+  let nome_tabela = document.getElementById('nome_tabela');
+  nome_tabela.innerHTML = 'Qualitativa Nominal';
+  //mostrar moda na tela
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
+  //motrar desvio padrao
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = `Desvio Padrão: Nao tem <b>`;
+  //mostrar coeficiente de varancia
+  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
+  texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
+  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
+  // que depois dá pra usar aqui abaixo
   array_valores.forEach((e) => {
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
@@ -468,7 +650,6 @@ function tratamentoDeDadosContinua() {
   return array_final_continua;
 }
 
-//criando tabela continua
 function criarTabelaContinua() {
   limparResultados();
   let div_tabela_continua = document.getElementById('div_tabela_continua');
@@ -478,9 +659,41 @@ function criarTabelaContinua() {
   //limpar tela
   corpo.innerHTML = '';
   let array_valores = tratamentoDeDadosContinua();
+  let media_continua = mediaContinua(array_valores);
+  let valor_moda = modaContinua();
+  let valor_mediana = medianaContinua();
+  let desvio_padrao = desvioPadraoPopulacaoContinua(
+    array_valores,
+    media_continua
+  );
+  let coeficiente_variacao_continua = coeficienteVariacaoDiscreta(
+    desvio_padrao,
+    media_continua
+  );
+
+  //motrar desvio padrao
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = `Desvio Padrão ${desvio_padrao} <b>`;
+  //mostrar coeficiente de varancia
+  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
+  texto_coeficiente.innerHTML = `Coeficiente de Variacao ${coeficiente_variacao_continua.toFixed(
+    2
+  )} <b>`;
   //mostrar nome tabela
   let nome_tabela = document.getElementById('nome_tabela');
+
   nome_tabela.innerHTML = 'Quantitativa Continua';
+  //motrar mediana
+  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
+  //motrar media
+  texto_media.innerHTML = `Media: ${media_continua.toFixed(2)} <br>`;
+  //mostrar moda
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <b>`;
+  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
+  // que depois dá pra usar aqui abaixo
+  // let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);
+  //   console.log(soma_total);
   array_valores.forEach((e) => {
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
@@ -510,6 +723,39 @@ function criarTabelaContinua() {
     corpo.appendChild(linha);
   });
   gerarGraficoContinua();
+}
+
+function mediaContinua(valores) {
+  let total_qtde = valores.reduce(
+    (acumulador, item) => acumulador + item.qtde,
+    0
+  );
+
+  let total_valores = valores.reduce(
+    (acumulador, item) => acumulador + item.xi * item.qtde,
+    0
+  );
+
+  let media = total_valores / total_qtde;
+
+  return media;
+}
+
+function desvioPadraoPopulacaoContinua(valores, media) {
+  // somatorio fi
+  let somatorio_fi = valores.reduce(
+    (acumulador, item) => acumulador + item.qtde,
+    0
+  );
+
+  let somatorio_valores = valores.reduce(
+    (acumulador, item) => acumulador + Math.pow(item.xi - media, 2) * item.qtde,
+    0
+  );
+
+  let desvio_padrao = Math.sqrt(somatorio_valores / somatorio_fi).toFixed(2);
+
+  return desvio_padrao;
 }
 
 function gerarGraficoContinua() {
@@ -653,6 +899,54 @@ function tratamentoDeDadosOrdinal() {
 
   return array_valores_ordenado;
 }
+
+function modaOrdinal() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let entrada = array_dados_variavel;
+  let maior = null;
+  let ocorrenciasMaior = -1;
+  let contagem = 1;
+  for (let i = 1; i <= entrada.length; i++) {
+    if (i < entrada.length && entrada[i] == entrada[i - contagem]) contagem++;
+    else if (contagem > ocorrenciasMaior) {
+      maior = entrada[i - 1];
+      ocorrenciasMaior = contagem;
+    }
+  }
+
+  return maior;
+}
+
+function medianaNominal() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = quickSort(array_dados_variavel);
+  let md = array_dados_variavel;
+  let valor_mediana = '';
+  var posicao = md.length / 2;
+  let qtde = md.length;
+  let pos_elemento = '';
+  //console.log(posicao);
+  if (qtde % 2 == 0) {
+    if (md[posicao - 1] == md[posicao]) {
+      //Se for igual ele já declara que aquela é a mediana
+      valor_mediana = md[posicao];
+      return valor_mediana;
+    } else {
+      //Se não for aqui ele mostra o calculo da mediana
+      valor_mediana = (md[posicao] + md[posicao - 1]) / 2;
+      return valor_mediana;
+    }
+  } else {
+    //Se a posição for impar , ele da o numero da posição direto arredondando a posição com a função pronta math.round, mostrando a posicao do elemento
+    pos_elemento = Math.ceil(posicao) - 1;
+    //pegar a posicao do elemento e mostrar o valor do elemento
+    return md[pos_elemento];
+  }
+}
+
 function criarTabelaOrd() {
   limparResultados();
   let corpo = document.querySelector('tbody');
@@ -660,15 +954,33 @@ function criarTabelaOrd() {
     'div_tabela_discreta_nominal_ordinal'
   );
   div_tabela_discreta.style.display = 'block';
+
   array_valores = tratamentoDeDadosOrdinal();
 
   if (array_valores === false) {
     return;
   }
 
+  valor_moda = modaOrdinal();
+  let valor_mediana = medianaNominal();
+  //mostrar mediana na tela
+  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
+  //mostrar media na tela
+  texto_media.innerHTML = 'Media: Nao tem <br>';
   // nome tabela
   let nome_tabela = document.getElementById('nome_tabela');
   nome_tabela.innerHTML = 'Qualitativa Ordinal/Nominal';
+  //mostrar moda na tela
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
+  //motrar desvio padrao
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = `Desvio Padrão: Nao tem <b>`;
+  //mostrar coeficiente de varancia
+  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
+  texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
+  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
+  // que depois dá pra usar aqui abaixo
   array_valores.forEach((e) => {
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
@@ -778,6 +1090,9 @@ function lerCSV() {
 }
 
 function limparResultados() {
+  let texto_media = document.getElementById('texto_media');
+  texto_media.innerHTML = '';
+
   let discreta_nominal_ordinal = document.getElementById(
     'discreta_nominal_ordinal'
   );
@@ -794,7 +1109,432 @@ function limparResultados() {
   let tabela_continua = document.getElementById('tabela_continua');
   tabela_continua.innerHTML = '';
 
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = '';
+
+  let texto_mediana = document.getElementById('texto_mediana');
+  texto_mediana.innerHTML = '';
+
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = '';
+
+  let texto_coeficiente_variacao = document.getElementById(
+    'texto_coeficiente_variacao'
+  );
+  texto_coeficiente_variacao.innerHTML = '';
+
   document.getElementById('container_grafico').innerHTML = '&nbsp;';
   document.getElementById('container_grafico').innerHTML =
     '<canvas id="myChart"></canvas>';
+}
+
+function quartilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
+  let quartil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+function quintilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
+  let quintil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
+  let decil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((dados.length * posicao) / 100);
+  let percentil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
+  let quartil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+function quintilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
+  let quintil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
+  let decil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = quickSort(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((dados.length * posicao) / 100);
+  let percentil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let quartil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+
+function quintilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let quintil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let decil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let percentil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let quartil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * quartil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let quartil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+
+function quintilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let quintil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * quintil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let quintil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let decil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * decil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let decil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let percentil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = (
+    (25 * total_dados * percentil_informado) /
+    100
+  ).toFixed(2);
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let percentil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function medianaContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let posicao_absoluta = ((50 * total_dados) / 100).toFixed(2);
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // mediana = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let mediana =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+
+  return mediana;
+}
+
+function modaContinua() {
+  let dados = tratamentoDeDadosContinua();
+  let idx_classe = 0;
+  let maior_anterior = dados[0].fi;
+  let maior_atual = 0;
+
+  for (let i = 0; i < dados.length; i++) {
+    maior_atual = dados[i].fi;
+    if (maior_anterior < maior_atual) {
+      maior_anterior = maior_atual;
+      idx_classe = i;
+    }
+  }
+
+  return dados[idx_classe].xi;
+}
+
+function calcularSeparatriz() {
+  let tipo_tabela = document.getElementById('tipo_tabela').value;
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+
+  if (tipo_tabela === 'nominal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilQualitativaNominal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilQualitativaNominal();
+    } else if (tipo_separatriz === 'decil') {
+      decilQualitativaNominal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilNominal();
+    }
+  }
+  if (tipo_tabela === 'ordinal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilOrdinal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilOrdinal();
+    } else if (tipo_separatriz === 'decil') {
+      decilOrdinal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilOrdinal();
+    }
+  }
+  if (tipo_tabela === 'discreta') {
+    if (tipo_separatriz === 'quartil') {
+      quartilDiscreta();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilDiscreta();
+    } else if (tipo_separatriz === 'decil') {
+      decilDiscreta();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilDiscreta();
+    }
+  }
+  if (tipo_tabela === 'continua') {
+    if (tipo_separatriz === 'quartil') {
+      quartilContinua();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilContinua();
+    } else if (tipo_separatriz === 'decil') {
+      decilContinua();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilContinua();
+    }
+  }
 }
