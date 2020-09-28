@@ -1123,6 +1123,17 @@ function limparResultados() {
   );
   texto_coeficiente_variacao.innerHTML = '';
 
+  let tipo_separatriz = document.getElementById('tipo_separatriz');
+  tipo_separatriz.value = '';
+
+  let valor_separatriz = document.getElementById('valor_separatriz');
+  valor_separatriz.value = '';
+
+  let valor_separatriz_calculado = document.getElementById(
+    'valor_separatriz_calculado'
+  );
+  valor_separatriz_calculado.value = '';
+
   document.getElementById('container_grafico').innerHTML = '&nbsp;';
   document.getElementById('container_grafico').innerHTML =
     '<canvas id="myChart"></canvas>';
