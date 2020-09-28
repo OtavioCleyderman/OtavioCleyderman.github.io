@@ -1,5 +1,4 @@
 //Grupo 09 Estatistica 2020
-
 function inserirDados() {
   let nome_ordem = document.getElementById('nome_ordem');
   let ordem = document.getElementById('ordem_valores');
