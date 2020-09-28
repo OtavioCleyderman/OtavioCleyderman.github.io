@@ -10,7 +10,7 @@ function inserirDados() {
   let botao = document.getElementById('calcular');
   let tipo_tabela = document.getElementById('tipo_tabela').value;
   limparResultados();
-  mostrarSelectSeparatrizes(false);
+  mostrarSelectSeparatrizes();
 
   if (tipo_tabela === 'nominal') {
     nome_ordem.style.display = 'none';
