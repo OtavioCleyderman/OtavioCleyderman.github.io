@@ -1,0 +1,21 @@
+#divDados,
+#divCarregarDados {
+  width: 50%;
+  min-width: 250px;
+  vertical-align: top;
+}
+#divDados {
+  margin-right: 0px;
+  display: inline-flex;
+}
+
+#divDados p.nome_variavel {
+  margin-right: 8px;
+}
+#divCarregarDados {
+  float: right;
+}
+#arquivo,
+#btn-upload-csv {
+  margin-top: 15px;
+}

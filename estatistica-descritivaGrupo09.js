@@ -1,4 +1,4 @@
-//Grupo 09 Estatistica 2020
+//Grupo 09 Estatistica Segundo Semestre/2020
 function inserirDados() {
   let nome_ordem = document.getElementById('nome_ordem');
   let ordem = document.getElementById('ordem_valores');
@@ -93,7 +93,7 @@ function tratamentoDeDados() {
   // let array_variavel = variavel;
   let array_dados_variavel = dadosVar.split(';').map(Number);
   //alfabeticamente
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   //calcular quantidade de cada item
   const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
     acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
@@ -165,7 +165,7 @@ function tratamentoDeDadosNominal() {
   // let array_variavel = variavel;
   let array_dados_variavel = dadosVar.split(';');
   //alfabeticamente
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   //calcular quantidade de cada item
   const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
     acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
@@ -322,7 +322,7 @@ function gerarGraficoDiscreta() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let nome = document.getElementById('nome_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let ctx = document.getElementById('myChart');
   let grafico = new Chart(ctx, {
     // Tipo grafico //
@@ -372,7 +372,7 @@ function media(valores) {
 function moda() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let entrada = array_dados_variavel;
   let maior = null;
   let ocorrenciasMaior = -1;
@@ -390,7 +390,7 @@ function moda() {
 function mediana() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let md = array_dados_variavel;
   let valor_mediana = '';
   var posicao = md.length / 2;
@@ -533,7 +533,7 @@ function gerarGraficoQualitativaNominal() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let nome = document.getElementById('nome_variavel').value;
   let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let ctx = document.getElementById('myChart');
   let grafico = new Chart(ctx, {
     // Tipo de grafico //
@@ -558,7 +558,7 @@ function tratamentoDeDadosContinua() {
   //descobrir a amplitude
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let at = array_dados_variavel.slice(-1) - array_dados_variavel[0];
   //quantidade de classes
   let classe = [];
@@ -810,7 +810,7 @@ function tratamentoDeDadosOrdinal() {
   // let array_variavel = variavel;
   let array_dados_variavel = dadosVar.split(';');
   //alfabeticamente
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   ///console.log(array_dados_variavel);
   //calcular quantidade de cada item
   const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
@@ -902,7 +902,7 @@ function tratamentoDeDadosOrdinal() {
 function modaOrdinal() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let entrada = array_dados_variavel;
   let maior = null;
   let ocorrenciasMaior = -1;
@@ -921,7 +921,7 @@ function modaOrdinal() {
 function medianaNominal() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let md = array_dados_variavel;
   let valor_mediana = '';
   var posicao = md.length / 2;
@@ -1024,7 +1024,7 @@ function gerarGraficoQualitativaOrdinal() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let nome = document.getElementById('nome_variavel').value;
   let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = quickSort(array_dados_variavel);
+  array_dados_variavel = Ordem(array_dados_variavel);
   let ctx = document.getElementById('myChart');
   let grafico = new Chart(ctx, {
     // Tipo de grafico //
@@ -1043,14 +1043,14 @@ function gerarGraficoQualitativaOrdinal() {
   });
 }
 
-// Função auxiliar de ordenação
+// Função auxiliar
 function troca(vet, i, j) {
   let aux = vet[i];
   vet[i] = vet[j];
   vet[j] = aux;
 }
 
-function quickSort(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
+function Ordem(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
   if (posFim > posIni) {
     const posPivot = posFim;
     let posDiv = posIni - 1;
@@ -1063,9 +1063,9 @@ function quickSort(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
     posDiv++;
     troca(vet, posDiv, posPivot);
 
-    quickSort(vet, fnComp, posIni, posDiv - 1);
+    Ordem(vet, fnComp, posIni, posDiv - 1);
 
-    quickSort(vet, fnComp, posDiv + 1, posFim);
+    Ordem(vet, fnComp, posDiv + 1, posFim);
   }
   return vet;
 }
@@ -1140,7 +1140,7 @@ function limparResultados() {
 
 function quartilQualitativaNominal() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((25 * dados.length * posicao) / 100);
   let quartil = dados[calculo - 1];
@@ -1151,7 +1151,7 @@ function quartilQualitativaNominal() {
 }
 function quintilQualitativaNominal() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((20 * dados.length * posicao) / 100);
   let quintil = dados[calculo - 1];
@@ -1163,7 +1163,7 @@ function quintilQualitativaNominal() {
 
 function decilQualitativaNominal() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((10 * dados.length * posicao) / 100);
   let decil = dados[calculo - 1];
@@ -1175,7 +1175,7 @@ function decilQualitativaNominal() {
 
 function percentilNominal() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((dados.length * posicao) / 100);
   let percentil = dados[calculo - 1];
@@ -1187,7 +1187,7 @@ function percentilNominal() {
 
 function quartilDiscreta() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((25 * dados.length * posicao) / 100);
   let quartil = dados[calculo - 1];
@@ -1198,7 +1198,7 @@ function quartilDiscreta() {
 }
 function quintilDiscreta() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((20 * dados.length * posicao) / 100);
   let quintil = dados[calculo - 1];
@@ -1210,7 +1210,7 @@ function quintilDiscreta() {
 
 function decilDiscreta() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((10 * dados.length * posicao) / 100);
   let decil = dados[calculo - 1];
@@ -1222,7 +1222,7 @@ function decilDiscreta() {
 
 function percentilDiscreta() {
   let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = quickSort(dados);
+  dados = Ordem(dados);
   let posicao = document.getElementById('valor_separatriz').value;
   let calculo = Math.ceil((dados.length * posicao) / 100);
   let percentil = dados[calculo - 1];

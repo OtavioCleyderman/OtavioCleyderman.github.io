@@ -6,25 +6,32 @@
     <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="estatistica-descritivaGrupo09.js"></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Estatística Descritiva</title>
   </head>
   <body>
-    <p>
-      Nome da Variável
-      <input type="text" id="nome_variavel" placeholder="Nome da variável" />
-    </p>
-    <p>
-      Dados para Análise
-      <input
-        type="text"
-        id="dados_variavel"
-        placeholder="Dados separados por ;"
-      />
-    </p>
-    <input type="file" name="upload-csv" id="arquivo" /><br />
-    <button id="btn-upload-csv" onclick="lerCSV()">
-      Ler os dados do arquivo</button
-    ><br />
+    <h1>Estatística Descritiva</h1>
+    <div id="divDados">
+      <p class="nome_variavel">
+        Nome da Variável:
+        <input type="text" id="nome_variavel" placeholder="Nome da variável" />
+      </p>
+      <p class="dados_variavel">
+        Dados para Análise:
+        <input
+          type="text"
+          id="dados_variavel"
+          placeholder="Dados separados por ;"
+        />
+      </p>
+    </div>
+    <div id="divCarregarDados">
+      <input type="file" name="upload-csv" id="arquivo" /><br />
+      <button id="btn-upload-csv" onclick="lerCSV()">
+        Ler os dados do arquivo</button
+      ><br />
+    </div>
+
     <p>
       <select name="tipo_desvio" id="tipo_desvio">
         <option value="amostra" id="amostra">Amostra</option>
