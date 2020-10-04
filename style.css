@@ -1,12 +1,13 @@
 #divDados,
 #divCarregarDados {
-  width: 50%;
+  width: 65%;
   min-width: 250px;
   vertical-align: top;
 }
 #divDados {
   margin-right: 0px;
   display: inline-flex;
+  width: 350px;
 }
 
 #divDados p.nome_variavel {
