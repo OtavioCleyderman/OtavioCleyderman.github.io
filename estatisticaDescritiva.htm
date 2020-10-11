@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Estatistica Descritiva</title>
+</head>
+<body>
+
+  <h2>Estatistica Descritiva</h2>
+
+  <input type="text" id="nome_variavel" name="nome_variavel" placeholder="Digite o nome da Variavel" size="30px"> 
+  <select name="tipo_desvio" id="tipo_desvio">
+      <option value="amostra">Amostra</option>
+      <option value="populacao">População</option>
+  </select>
+    </br>
+    </br>
+    <input type="text" id="dados_variavel" name="dados_variavel" placeholder="Dados da variavel, separando com;" size="30px">
+  </br>
+  </br>
+    <button id="TabDiscreta" onclick="tabelaDiscreta()">Quantitativa Discreta</button>
+    <button id="QuantidadeDiscreta" onclick="graficoDiscreta()">Graficos Quantitativa Discreta</button>
+    <button id="QuantidadeDiscreta" onclick="history.go(0)">Limpar</button> 
+
+    <div style="top:0px; float: right; width:500px;">
+    
+      <div>
+        <br>
+        <div id="texto_media"></div>
+        <div id="texto_moda"></div>
+        <div id="texto_mediana"></div>
+        <div id="texto_desvio_padrao"></div>
+        <div id="texto_coeficiente_variacao"></div>
+    </div>
+    <div style="width:500px;">
+        <canvas id="myChart"></canvas>
+    </div>
+    
+    </div>
+  </br>
+  </br> 
+    <button id="TabOrdinal" onclick="TabelaOrdinal()">Qualitativa Ordinal</button>
+    <button id="QuantitativaGrafica" onclick="graficoQualitativa()">Graficos Qualitativa Ordinal</button>
+    <button id="QuantidadeDiscreta" onclick="history.go(0)">Limpar</button>
+  </br>
+   </br> 
+    <button id="TabNominal" onclick="TabelaNom()">Qualitativa Nominal</button>
+    <button id="QuantitativaGrafica" onclick="graficoQualitativa()">Graficos Qualitativa Nominal</button>
+    <button id="QuantidadeDiscreta" onclick="history.go(0)">Limpar</button>
+  </br>
+ 
+
+    <div>
+        <br>
+        <label id="nome_tabela"></label>
+    </div>
+    <br>
+
+    <table border ="1" id="discreta_nominal_ordinal" style="visibility: visible;">
+        <thead>
+            <tr>
+                <th>Variavel</th>
+                <th>FI</th>
+                <th>FR%</th>
+                <th>FAC</th>
+                <th>FAC%</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+  </br>
+  <hr>
+  <button id="TabContinua" onclick="tabelaContinua()">Quantitativa Continua</button>
+  <button id="GraficContinua" onclick="graficoContinua()">Graficos Quantitativa Continua</button>
+  <button id="QuantidadeDiscreta" onclick="history.go(0)">Limpar</button>
+  </br>
+  <div>
+    <br>
+    <label id="nome_tabela"></label>
+</div>
+<br>
+    <table border ="1" id="table_continua">
+        <thead>
+            <tr>
+                <th>Variavel</th>
+                <th>FI</th>
+                <th>FR%</th>
+                <th>FAC</th>
+                <th>FAC%</th>
+                <th>XI</th>
+            </tr>
+        </thead>
+        <tbody id="tbody_continua">
+
+        </tbody>
+    </table>
+    
+
+  <a href="index.html">Voltar</a>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src='estatisticaDescritiva.js'></script>
+</body>
+</html>
