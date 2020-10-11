@@ -755,3 +755,394 @@ function tratamentoDeDadosOrdinal() {
 
   return array_valores;
 }
+
+// Separatriz
+
+function mostrarSelectSeparatrizes(mostrar = true) {
+  let tipo_separatriz = document.getElementById('tipo_separatriz');
+  tipo_separatriz.style.display = mostrar ? 'block' : 'none';
+}
+
+// Após selecionar o tipo de separatriz mostrar as opções de cálculo
+function mostrarOpcaoSeparatriz() {
+  let valor_separatriz = document.getElementById('valor_separatriz');
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+  valor_separatriz.style.display = 'block';
+
+  if (tipo_separatriz === 'quartil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 4';
+  } else if (tipo_separatriz === 'quintil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 5';
+  } else if (tipo_separatriz === 'decil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 10';
+  } else if (tipo_separatriz === 'percentil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 100';
+  } else if (tipo_separatriz === '') {
+    valor_separatriz.style.display = 'none';
+  }
+}
+
+function quartilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
+  let quartil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+function quintilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
+  let quintil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilQualitativaNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
+  let decil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilNominal() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((dados.length * posicao) / 100);
+  let percentil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
+  let quartil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+function quintilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
+  let quintil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
+  let decil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((dados.length * posicao) / 100);
+  let percentil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let quartil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+
+function quintilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let quintil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let decil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilOrdinal() {
+  let array_valores = document
+    .getElementById('dados_variavel')
+    .value.split(';');
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((array_valores_ordenado.length * posicao) / 100);
+  let percentil = array_valores_ordenado[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function quartilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let quartil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * quartil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let quartil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+
+function quintilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let quintil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * quintil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let quintil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let decil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = ((25 * total_dados * decil_informado) / 100).toFixed(
+    2
+  );
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let decil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilContinua() {
+  let dados = tratamentoDeDadosContinua();
+  const total_dados = dados[dados.length - 1].fa;
+  let percentil_informado = document.getElementById('valor_separatriz').value;
+  let posicao_absoluta = (
+    (25 * total_dados * percentil_informado) /
+    100
+  ).toFixed(2);
+  let idx_classe = 0;
+
+  // aqui encontramos a classe que se refere a posição absoluta
+  for (let i = 0; i < dados.length; i++) {
+    if (posicao_absoluta <= dados[i].fa) {
+      idx_classe = i;
+      break;
+    }
+  }
+
+  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  let fac_anterior = 0;
+  if (idx_classe == 0) {
+    fac_anterior = 0;
+  } else {
+    fac_anterior = dados[idx_classe - 1].fa;
+  }
+  let percentil =
+    dados[idx_classe].limite_inferior +
+    ((posicao_absoluta - fac_anterior) / total_dados) *
+      dados[idx_classe].intervalo_classes;
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+function calcularSeparatriz() {
+  let tipo_tabela = document.getElementById('tipo_tabela').value;
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+
+  if (tipo_tabela === 'nominal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilQualitativaNominal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilQualitativaNominal();
+    } else if (tipo_separatriz === 'decil') {
+      decilQualitativaNominal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilNominal();
+    }
+  }
+  if (tipo_tabela === 'ordinal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilOrdinal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilOrdinal();
+    } else if (tipo_separatriz === 'decil') {
+      decilOrdinal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilOrdinal();
+    }
+  }
+  if (tipo_tabela === 'discreta') {
+    if (tipo_separatriz === 'quartil') {
+      quartilDiscreta();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilDiscreta();
+    } else if (tipo_separatriz === 'decil') {
+      decilDiscreta();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilDiscreta();
+    }
+  }
+  if (tipo_tabela === 'continua') {
+    if (tipo_separatriz === 'quartil') {
+      quartilContinua();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilContinua();
+    } else if (tipo_separatriz === 'decil') {
+      decilContinua();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilContinua();
+    }
+  }
+}

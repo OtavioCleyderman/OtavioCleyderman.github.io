@@ -72,7 +72,6 @@
 
         </tbody>
     </table>
-
   </br>
   <hr>
   <button id="TabContinua" onclick="tabelaContinua()">Quantitativa Continua</button>
@@ -99,6 +98,52 @@
 
         </tbody>
     </table>
+    <br>
+    <hr>
+    <div>
+      <select
+        name="tipo_separatriz"
+        id="tipo_separatriz"
+        style="display: block"
+        onchange="mostrarOpcaoSeparatriz()"
+      >
+        <option value="" selected>Selecione uma opção</option>
+        <option value="quartil">Quartil</option>
+        <option value="quintil">Quintil</option>
+        <option value="decil">Decil</option>
+        <option value="percentil">Percentil</option>
+      </select>
+
+      <input
+        name="valor_separatriz"
+        id="valor_separatriz"
+        placeholder=""
+        style="display: none"
+        size="50"
+      />
+
+      <select name="tipo_tabela" id="tipo_tabela">
+        <option value="nominal">Variável Qualitativa Nominal</option>
+        <option value="ordinal">Variável Qualitativa Ordinal</option>
+        <option value="discreta">Variável Quantitativa Discreta</option>
+        <option value="continua">Variável Quantitativa Continua</option>
+      </select>
+
+      <button
+        id="calcular_separatriz"
+        name="calculcar_separatriz"
+        onclick="calcularSeparatriz()"
+      >
+        Calcular separatriz
+      </button>
+      <input
+        name="valor_separatriz_calculado"
+        id="valor_separatriz_calculado"
+        style="display: none"
+        size="50"
+      />
+    </div>
+    <br>
     
 
   <a href="index.html">Voltar</a>
