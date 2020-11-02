@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Distribuição Normal
+    </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='distribuicao-uniforme.js'></script>
+
+
+</head>
+<body>
+    <h2>Distribuição Uniforme</h2>
+    <div>
+        <br>
+            <label>Valor Minimo</label>
+            <input type="text" id="inicial" name="inicial" placeholder="Digite o valor inicial" size="30">
+        </br>
+        
+        <br>
+            <label>Valor Maximo</label>
+            <input type="text" id="final" name="final" placeholder="Digite o valor final" size="30">
+        </br>
+
+        <br>
+            <label>Intervalo</label>
+            <select name="intervalo" id="intervalo">
+                <option value="maior" selected>Mais que</option>
+                <option value="menor">Menos que</option>
+                <option value="entre">Entre dois numeros</option> 
+              </select>
+        </br>
+        
+        <br>
+            <label>Valor do Intervalo</label>
+            <input type="text" id="valor_intervalo" name="valor_intervalo" placeholder="Digite o valor do Intervalo" size="30">
+        </br>
+        
+
+        <br>
+            <button id="calcular" onclick="calcular()">Calcular</button>
+        </br>
+        <br>
+            <div id="texto_media"></div>
+            <div id="texto_dp"></div>
+            <div id="texto_variancia"></div>
+            <div id="texto_probabilidade"></div>
+        </br>
+        </div>
+    
+    </div>
+</body>

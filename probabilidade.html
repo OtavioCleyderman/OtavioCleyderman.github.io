@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>probabilidade</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='probabilidade.js'></script>
+
+</head>
+<body>
+    <h2>Distribuição Binomial</h2>
+    <div>
+        <br>
+            <label>Amostra</label>
+            <input type="text" id="amostra" name="amostra" placeholder="Digite os dados da amostra (N)" size="30">
+        </br>
+        
+        <br>
+            <label>Sucesso</label>
+            <input type="text" id="sucesso" name="sucesso" placeholder="Digite a chance de sucesso (P)" size="30">
+        </br>
+        
+        <br>
+            <label>Fracasso</label>
+            <input type="text" id="fracasso" name="fracasso" placeholder="Digite a chance de fracasso (Q)" size="30">
+        </br>
+        
+        <br>
+            <label>Evento</label>
+            <input type="text" id="evento" name="evento" placeholder="Digite os eventos (K)" size="30">
+        </br>
+
+        <br>
+            <button id="Calcular" onclick="DistribuicaoBinomial()">Calcular</button>
+        </br>
+        <br>
+            <div id="texto_probabilidade"></div>
+            <div id="texto_media"></div>
+            <div id="texto_coeficiente_variancia"></div>
+        </br>
+        </div>
+    
+    </div>
+</body>
