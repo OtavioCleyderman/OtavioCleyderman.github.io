@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Distribuição Normal
+    </title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='distribuicao-normal.js'></script>
+
+</head>
+<body>
+    <h1>Grupo 09</h1>
+  <br>
+  <br>
+  <table style="width:500px">
+    <tr>
+      <th><a href="../../index.html">Home</a></th>
+      <th><a href="../../estatistica-descritiva/index.html">Estatistica Descritiva</a></th>
+      <th style="border: 1px solid;"><strong>Probabilidade</strong></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th style="border: 1px solid;"><a href="../distribuicao-binomial/probabilidade.html">Distribuição Binominal</a></th>
+      <th style="border: 1px solid;"><a href="../distribuicao-uniforme/distribuicao-uniforme.html">Distribuição Uniforme</a></th>
+      <th style="border: 1px solid;">Distribuição Normal</th>
+    </tr>
+  </table>
+    <h2>Distribuição Normal</h2>
+    <div>
+        <br>
+            <label>Media</label>
+            <input type="text" id="media" name="media" placeholder="Digite o valor da media" size="30">
+        </br>
+        
+        <br>
+            <label>Desvio Padrão</label>
+            <input type="text" id="desvio_padrao" name="desvio_padrao" placeholder="Digite o valor do desvio padrao" size="30">
+        </br>
+        
+        <br>
+            <label>Intervalo</label>
+            <select name="intervalo" id="intervalo">
+                <option value="maior" selected>Maior que</option>
+                <option value="menor">Menor que</option>
+                <option value="entre">Entre dois numeros</option> 
+              </select>
+        </br>
+        
+        <br>
+            <label>Valor do Intervalo</label>
+            <input type="text" id="valor_intervalo" name="valor_intervalo" placeholder="Digite o valor do Intervalo" size="30">
+        </br>
+
+        <br>
+            <button id="calcular" onclick="escoreZ()">Calcular</button>
+        </br>
+        <br>
+            <div id="texto_probabilidade"></div>
+        </br>
+        </div>
+    
+    </div>
+</body>
