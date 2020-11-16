@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>probabilidade</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="../assets/css/stylesite.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
+    <script src='correlacao-regressao.js'></script>
+</head>
+<body>
+
+    <header >
+        <div class="container">
+          <span class="logo">
+          <h1>Grupo 09</h1>
+          </span>
+          
+          <nav class="menu">
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../estatistica-descritiva/index.html">Estatistica Descritiva</a></li>
+              <li><a href="../distribuicao/distribuicao.html">Probabilidade</a></li>
+              <li style="font-weight: 700; color:#1363b3;">Correlação Regressão</li>
+              <li><a href="../sobre.html">Sobre Nós</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+    
+    <div class="content">
+      <div>
+        <h1>Correlacao e Regressao</h1>
+        <div>
+            <br>
+                <label>Valor X</label>
+                <input type="text" id="valor_x" name="valor_x" placeholder="Digite o valor X" size="30">
+            </br>
+            
+            <br>
+                <label>Valor Y</label>
+                <input type="text" id="valor_y" name="valor_y" placeholder="Digite o valor Y" size="30">
+            </br>
+            
+            <br>
+                <button id="Calcular" onclick="calcularCorrelacao()">Calcular</button>
+                <button id="Calcular" onclick="drawChart()">Grafico</button>
+            </br>
+            <br>
+                <div id="texto_regressao"></div>
+                <div id="texto_correlacao"></div>
+            </br>
+            <div id="myChart" style="width: 900px; height: 500px;"></div>
+            </div>
+            </div>
+            <div id="container">
+    
+            </div>
+        
+        </div>
+        </div>
+    </div>
+    <footer class="footer">
+      Todos os Direitos Reservados
+    </footer>
+
+</body>
+</html>

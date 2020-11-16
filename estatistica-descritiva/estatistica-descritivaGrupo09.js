@@ -1,4 +1,11 @@
-//Grupo 09 Estatistica Segundo Semestre/2020
+//Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
+// Implementação dos botões de inserção até o dia 07/09/2020 //
+// Implementação das tabelas(fr%,fac,fac%) até o dia 14/09/2020 //
+// Implementação medidas separatrizes até o dia 28/09/2020 //
+// Implementação média,moda e mediana até o dia 29/09/2020 //
+// Implementação desvio padrão e coeficiente de variação até o dia 05/10/2020 //
+//Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020//
+//Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort até 18/11/20(6,0 pontos)//
 function inserirDados() {
   let nome_ordem = document.getElementById('nome_ordem');
   let ordem = document.getElementById('ordem_valores');
@@ -26,15 +33,7 @@ function inserirDados() {
   if (tipo_tabela === 'continua') {
     nome_ordem.style.display = 'none';
     ordem.style.display = 'none';
-  } /*else {
-    up_input.style.display = 'none';
-    up_botao.style.display = 'none';
-    nome.style.display = 'none';
-    dados.style.display = 'none';
-    botao.style.display = 'none';
-    nome_ordem.style.display = 'none';
-    ordem.style.display = 'none';
-  }*/
+  } 
 }
 
 function mostrarSelectSeparatrizes(mostrar = true) {
@@ -42,7 +41,7 @@ function mostrarSelectSeparatrizes(mostrar = true) {
   tipo_separatriz.style.display = mostrar ? 'block' : 'none';
 }
 
-// Após selecionar o tipo de separatriz mostrar as opções de cálculo
+// Após selecionar o tipo de separatriz mostrar as opções de cálculo //
 function mostrarOpcaoSeparatriz() {
   let valor_separatriz = document.getElementById('valor_separatriz');
   let tipo_separatriz = document.getElementById('tipo_separatriz').value;
@@ -87,9 +86,9 @@ function getRandomColor() {
 }
 
 function tratamentoDeDados() {
-  //Recebendo dados do input
+  //Recebendo dados do input //
   let dadosVar = document.getElementById('dados_variavel').value;
-  //dividindo os dados
+  //dividindo os dados //
   // let array_variavel = variavel;
   let array_dados_variavel = dadosVar.split(';').map(Number);
   //alfabeticamente
@@ -175,7 +174,7 @@ function tratamentoDeDadosNominal() {
   // Array vazia que irá conter {nome: 'nome_digitado', valor: valor_digitado}
   let array_valores = [];
   // contador auxiliar
-  // percorrer todos os nomes digitados e adicionar na array "final" que será ordenada alfabeticamente
+  // percorrer todos os nomes digitados e adicionar na array "final" que será ordenada alfabeticamente //
   let valor_anterior;
   array_dados_variavel.forEach((dados_variavel) => {
     if (dados_variavel != valor_anterior) {
@@ -1043,7 +1042,8 @@ function gerarGraficoQualitativaOrdinal() {
   });
 }
 
-// Função auxiliar
+//Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020//
+//Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort(6,0 pontos) //
 function troca(vet, i, j) {
   let aux = vet[i];
   vet[i] = vet[j];
@@ -1069,6 +1069,8 @@ function Ordem(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
   }
   return vet;
 }
+
+//__________________________________________________________________________________//
 
 // Essa função lê o CSV
 function lerCSV() {

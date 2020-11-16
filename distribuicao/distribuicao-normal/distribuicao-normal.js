@@ -1,3 +1,6 @@
+//Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
+//Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020//
+//Trabalho-02 Estrutura de Dados/Inserir Algoritimo de busca binária até 18/11/20(6,0 pontos)//
 const tabela_z_escore = [
         [0.0, 0.0000, 0.0040, 0.0080, 0.0120, 0.0160, 0.0199, 0.0239, 0.0279, 0.0319, 0.0359],
         [0.1, 0.0398, 0.0438, 0.0478, 0.0517, 0.0557, 0.0596, 0.0636, 0.0675, 0.0714, 0.0753],

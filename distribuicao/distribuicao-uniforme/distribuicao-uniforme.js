@@ -1,3 +1,5 @@
+//Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
+// Distribuição Uniforme - implementação até o dia 26/10/2020 //
 function calcular() {
     let inicial = document.getElementById("inicial").value;
     let final = document.getElementById("final").value;

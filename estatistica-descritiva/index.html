@@ -6,154 +6,172 @@
     <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="estatistica-descritivaGrupo09.js"></script>
+  <link rel="stylesheet" href="../assets/css/stylesite.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <title>Estatística Descritiva</title>
   </head>
   <body>
-      <h1>Grupo 09</h1>
-      <br>
-      <br>
-      <div style="width:600px">
-        <ul style="display: flex; justify-content: flex-start; align-items: flex-start; padding-right: 30px; list-style: none;">
-          <li style="padding-right: 15px;"><a href="../index.html">Home</a></li>
-          <li style="padding-right: 15px;"><a href="../estatistica-descritiva/index.html">Estatistica Descritiva</a></li>
-          <li style="padding-right: 15px;"><a href="../distribuicao/distribuicao.html">Probabilidade</a></li>
-          <li style="padding-right: 15px;"><a href="../correlacao-regressao/correlacao-regressao.html">Correlação Regressão</a></li>
-        </ul>
+
+    <header >
+      <div class="container">
+        <span class="logo">
+        <h1>Grupo 09</h1>
+        </span>
+        
+        <nav class="menu">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li style="font-weight: 700; color:#1363b3;">Estatistica Descritiva</a></li>
+            <li><a href="../distribuicao/distribuicao.html">Probabilidade</li>
+            <li><a href="../correlacao-regressao/correlacao-regressao.html">Correlação Regressão</a></li>
+            <li><a href="../sobre.html">Sobre Nós</a></li>
+          </ul>
+        </nav>
       </div>
-    <h1>Estatística Descritiva</h1>
-    <div id="divDados">
-      <p class="nome_variavel">
-        Nome da Variável:
-        <input type="text" id="nome_variavel" placeholder="Nome da variável" />
-      </p>
-      <p class="dados_variavel">
-        Dados para Análise:
+    </header>
+  
+  <div class="content">
+      <h1>Estatística Descritiva</h1>
+      <div class="variavel">
+        <p class="nome_variavel">
+          Nome da Variável:
+          <input type="text" id="nome_variavel" placeholder="Nome da variável" />
+        </p>
+        <p class="dados_variavel" style="margin-left: 15px;">
+          Dados para Análise:
+          <input
+            type="text"
+            id="dados_variavel"
+            placeholder="Dados separados por ;"
+          />
+        </p>
+      </div>
+      <div  class="content-right">
+        <input type="file" name="upload-csv" id="arquivo" />
+        <button id="btn-upload-csv" onclick="lerCSV()">
+          Ler os dados do arquivo</button
+        >
+      </div>
+  
+      
+      <p>
+        
+          <select name="tipo_desvio" id="tipo_desvio">
+            <option value="amostra" id="amostra">Amostra</option>
+            <option value="populacao" id="populacao">População</option>
+          </select>
+        
+        <label for="tipoVariavel"> Escolha o tipo de variável</label>
+        <select name="tipo_tabela" id="tipo_tabela" onchange="inserirDados()">
+          <option value="nominal">Variável Qualitativa Nominal</option>
+          <option value="ordinal">Variável Qualitativa Ordinal</option>
+          <option value="discreta">Variável Quantitativa Discreta</option>
+          <option value="continua">Variável Quantitativa Continua</option>
+        </select>
+        <label for="ordem_valores" id="nome_ordem" style="display: none"
+          >Qual a ordem desejada:</label
+        >
         <input
           type="text"
-          id="dados_variavel"
-          placeholder="Dados separados por ;"
+          size="100"
+          id="ordem_valores"
+          name="ordem_valores"
+          placeholder="Ordem dos valores separados por ;"
+          style="display: none"
         />
+        <button id="calcular" onclick="calcular()">Calcular</button>
       </p>
-    </div>
-    <div id="divCarregarDados">
-      <input type="file" name="upload-csv" id="arquivo" /><br />
-      <button id="btn-upload-csv" onclick="lerCSV()">
-        Ler os dados do arquivo</button
-      ><br />
-    </div>
-
-    <p>
-      <select name="tipo_desvio" id="tipo_desvio">
-        <option value="amostra" id="amostra">Amostra</option>
-        <option value="populacao" id="populacao">População</option>
-      </select>
-    </p>
-    <p>
-      <label for="tipoVariavel"> Escolha o tipo de variável</label>
-      <select name="tipo_tabela" id="tipo_tabela" onchange="inserirDados()">
-        <option value="nominal">Variável Qualitativa Nominal</option>
-        <option value="ordinal">Variável Qualitativa Ordinal</option>
-        <option value="discreta">Variável Quantitativa Discreta</option>
-        <option value="continua">Variável Quantitativa Continua</option>
-      </select>
-      <label for="ordem_valores" id="nome_ordem" style="display: none"
-        >Qual a ordem desejada:</label
-      >
-      <input
-        type="text"
-        size="100"
-        id="ordem_valores"
-        name="ordem_valores"
-        placeholder="Ordem dos valores separados por ;"
-        style="display: none"
-      />
-      <button id="calcular" onclick="calcular()">Calcular</button>
-    </p>
-
-    <div>
+  
+      <div>
+        <br />
+        <label id="nome_tabela"></label>
+      </div>
       <br />
-      <label id="nome_tabela"></label>
-    </div>
-    <br />
-
-    <div id="div_tabela_discreta_nominal_ordinal" style="display: none">
-      <table border="2">
-        <thead>
-          <tr>
-            <th>Variavel</th>
-            <th>FI</th>
-            <th>FR%</th>
-            <th>FAC</th>
-            <th>FAC%</th>
-          </tr>
-        </thead>
-        <tbody id="discreta_nominal_ordinal"></tbody>
-      </table>
-    </div>
-    <div id="div_tabela_continua" style="display: none">
-      <table border="2">
-        <thead>
-          <tr>
-            <th>Variavel</th>
-            <th>FI</th>
-            <th>FR%</th>
-            <th>FAC</th>
-            <th>FAC%</th>
-            <th>XI</th>
-          </tr>
-        </thead>
-        <tbody id="tabela_continua"></tbody>
-      </table>
-    </div>
-    <div>
-      <br />
-      <div id="texto_media"></div>
-      <div id="texto_moda"></div>
-      <div id="texto_mediana"></div>
-      <div id="texto_desvio_padrao"></div>
-      <div id="texto_coeficiente_variacao"></div>
-    </div>
-    <div
-      style="top: 60px; left: 10px; width: 600px; height: 300px"
-      id="container_grafico"
-    >
-      <canvas id="myChart"></canvas>
-    </div>
-    <div>
-      <select
-        name="tipo_separatriz"
-        id="tipo_separatriz"
-        style="display: block"
-        onchange="mostrarOpcaoSeparatriz()"
+  
+      <div id="div_tabela_discreta_nominal_ordinal" style="display: none">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Variavel</th>
+              <th>FI</th>
+              <th>FR%</th>
+              <th>FAC</th>
+              <th>FAC%</th>
+            </tr>
+          </thead>
+          <tbody id="discreta_nominal_ordinal"></tbody>
+        </table>
+      </div>
+      <div id="div_tabela_continua" style="display: none">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Variavel</th>
+              <th>FI</th>
+              <th>FR%</th>
+              <th>FAC</th>
+              <th>FAC%</th>
+              <th>XI</th>
+            </tr>
+          </thead>
+          <tbody id="tabela_continua"></tbody>
+        </table>
+      </div>
+      <div>
+        <br />
+        <div id="texto_media"></div>
+        <div id="texto_moda"></div>
+        <div id="texto_mediana"></div>
+        <div id="texto_desvio_padrao"></div>
+        <div id="texto_coeficiente_variacao"></div>
+      </div>
+      <div
+        style="top: 60px; left: 10px; width: 600px; height: 300px"
+        id="container_grafico"
       >
-        <option value="" selected>Selecione uma opção</option>
-        <option value="quartil">Quartil</option>
-        <option value="quintil">Quintil</option>
-        <option value="decil">Decil</option>
-        <option value="percentil">Percentil</option>
-      </select>
-
-      <input
-        name="valor_separatriz"
-        id="valor_separatriz"
-        placeholder=""
-        style="display: none"
-        size="50"
-      />
-      <button
-        id="calcular_separatriz"
-        name="calculcar_separatriz"
-        onclick="calcularSeparatriz()"
-      >
-        Calcular separatriz
-      </button>
-      <input
-        name="valor_separatriz_calculado"
-        id="valor_separatriz_calculado"
-        style="display: none"
-        size="50"
-      />
-    </div>
+        <canvas id="myChart"></canvas>
+      </div>
+      <div>
+        <select
+          name="tipo_separatriz"
+          id="tipo_separatriz"
+          style="display: block"
+          onchange="mostrarOpcaoSeparatriz()"
+        >
+          <option value="" selected>Selecione uma opção</option>
+          <option value="quartil">Quartil</option>
+          <option value="quintil">Quintil</option>
+          <option value="decil">Decil</option>
+          <option value="percentil">Percentil</option>
+        </select>
+  
+        <input
+          name="valor_separatriz"
+          id="valor_separatriz"
+          placeholder=""
+          style="display: none"
+          size="50"
+        />
+        <button
+          style="margin-top: 15px; margin-bottom: 15px;"
+          id="calcular_separatriz"
+          name="calculcar_separatriz"
+          onclick="calcularSeparatriz()"
+        >
+          Calcular separatriz
+        </button>
+        <input
+          name="valor_separatriz_calculado"
+          id="valor_separatriz_calculado"
+          style="display: none"
+          size="50"
+        />
+      </div>
+  </div>
+  <footer class="footer" style="margin-top: 317px;">
+    Todos os Direitos Reservados
+  </footer>
+    
   </body>
 </html>
