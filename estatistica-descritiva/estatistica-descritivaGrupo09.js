@@ -1,11 +1,19 @@
-//Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
-// Implementação dos botões de inserção até o dia 07/09/2020 //
-// Implementação das tabelas(fr%,fac,fac%) até o dia 14/09/2020 //
-// Implementação medidas separatrizes até o dia 28/09/2020 //
-// Implementação média,moda e mediana até o dia 29/09/2020 //
-// Implementação desvio padrão e coeficiente de variação até o dia 05/10/2020 //
-//Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020//
-//Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort até 18/11/20(6,0 pontos)//
+//    Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020                                //
+//   Implementação dos botões de inserção até o dia 07/09/2020                                                     //
+//  Implementação das tabelas(FI,fr%,fac,fac%) até o dia 14/09/2020                                               //
+//  Implementação medidas separatrizes até o dia 28/09/2020                                                      //
+//  Implementação média,moda e mediana até o dia 29/09/2020                                                     //
+//  Implementação desvio padrão e coeficiente de variação até o dia 05/10/2020                                 //
+//  Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020                    //
+//  Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort até 18/11/20(6,0 pontos)        //
+//  Para gerar os gráficos do trabalho integrado, foi utilizado o chart.js                                  //
+//  O Chart.js é uma biblioteca muito utilizada pela comunidade, excelente e muito fácil de utilizar       //
+//  Mesmo se você não tiver conhecimentos avançados de Javascript você vai conseguir criar gráficos bons, bonitos e responsivos       //
+
+//Organização>Variavel qualitativa nominal>Variavel qualitativa ordinal>Variavel quantitativa discreta>Variavel quantitativa continua//
+
+//                 Inserir dados para as analises no dia 07/09/2020                     //
+
 function inserirDados() {
   let nome_ordem = document.getElementById('nome_ordem');
   let ordem = document.getElementById('ordem_valores');
@@ -36,29 +44,7 @@ function inserirDados() {
   } 
 }
 
-function mostrarSelectSeparatrizes(mostrar = true) {
-  let tipo_separatriz = document.getElementById('tipo_separatriz');
-  tipo_separatriz.style.display = mostrar ? 'block' : 'none';
-}
-
-// Após selecionar o tipo de separatriz mostrar as opções de cálculo //
-function mostrarOpcaoSeparatriz() {
-  let valor_separatriz = document.getElementById('valor_separatriz');
-  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
-  valor_separatriz.style.display = 'block';
-
-  if (tipo_separatriz === 'quartil') {
-    valor_separatriz.placeholder = 'Digite um valor entre 1 e 4';
-  } else if (tipo_separatriz === 'quintil') {
-    valor_separatriz.placeholder = 'Digite um valor entre 1 e 5';
-  } else if (tipo_separatriz === 'decil') {
-    valor_separatriz.placeholder = 'Digite um valor entre 1 e 10';
-  } else if (tipo_separatriz === 'percentil') {
-    valor_separatriz.placeholder = 'Digite um valor entre 1 e 100';
-  } else if (tipo_separatriz === '') {
-    valor_separatriz.style.display = 'none';
-  }
-}
+//--------------------------------------------------------------------------------------//
 
 function calcular() {
   if (document.getElementById('tipo_tabela').value === 'nominal') {
@@ -81,28 +67,28 @@ function getRandomColor() {
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
-  //  console.log(color);
-  return color;
+  return color; 
 }
+
+//-----------------------------------------------------------------------------------------//
+//    Essa função que vai organizar e tratar os elementos que forem inseridos na analise  //
 
 function tratamentoDeDados() {
-  //Recebendo dados do input //
+  //                   Recebe os dados do input                                     //
   let dadosVar = document.getElementById('dados_variavel').value;
-  //dividindo os dados //
-  // let array_variavel = variavel;
+  //                       Dividi os dados                                         // 
   let array_dados_variavel = dadosVar.split(';').map(Number);
-  //alfabeticamente
+  //                     Divide os dados em ordem alfabetica                      //
   array_dados_variavel = Ordem(array_dados_variavel);
-  //calcular quantidade de cada item
-  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
+  //                     Calcula a quantidade de cada item                       //
+  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => { //arrow function //
     acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
     return acumulador;
   }, {});
 
-  // Array vazia que irá conter {nome: 'nome_digitado', valor: valor_digitado}
+  //     A Array vazia que irá conter - nome: digitado, valor: digitado           //
   let array_valores = [];
-  // contador auxiliar
-  // percorrer todos os nomes digitados e adicionar na array "final" que será ordenada alfabeticamente
+  // O contador auxiliar, percorre todos os nomes digitados e adiciona na array final que será ordenada alfabeticamente //
   let valor_anterior;
   array_dados_variavel.forEach((dados_variavel) => {
     if (dados_variavel != valor_anterior) {
@@ -119,27 +105,25 @@ function tratamentoDeDados() {
     total_dados.push(parseFloat(t.qtde));
   });
 
-  // Somatório total
+  //                Somatório total                //
   let resultado = total_dados.reduce(
     (acumulador, item) => acumulador + item,
     0
   );
 
-  //calculo FA
-  //cont aux q
+  //               Cálculo FA - Contador auxiliar de quantidade            //
   let k = 0;
   let l = 0;
-  // o primeiro valor
-  // enquanto percorre, soma quantidade
-  array_valores.forEach((element) => {
+  //           Primeiro valor, enquanto percorre, soma quantidade         //
+  array_valores.forEach((element) => { //arrow function //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
-    //Caso base, caso seja primeira vez no laco o FA eh o valor do item mesmo
+  //   Caso base, seja primeira vez no laço, o FA é o valor do item mesmo          //
     if (k == 0) {
       element.fa = parseFloat(element.qtde);
-      //caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual
+  // Caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual //
     } else if (k > 0) {
-      //fa anterior q-1                        //valor do item atual
+  //          FA anterior q-1 - Valor do item atual                          //
       element.fa =
         parseFloat(array_valores[k - 1].fa) + parseFloat(element.qtde);
     }
@@ -156,25 +140,28 @@ function tratamentoDeDados() {
 
   return array_valores;
 }
+
+//------------------------------------------------------------------------//
+//           Começo da Variavel Qualitativa Nominal                      //
+
 
 function tratamentoDeDadosNominal() {
-  //recebendo dados do input
+  //            Recebe os dados do input                           //
   let dadosVar = document.getElementById('dados_variavel').value;
-  //dividindo os dados
-  // let array_variavel = variavel;
+  //              Dividi os dados recebidos                          //
+  //       let array_variavel = variavel ( ; )                       //
   let array_dados_variavel = dadosVar.split(';');
-  //alfabeticamente
+  //       Divide os dados recebidos alfabeticamente                 //
   array_dados_variavel = Ordem(array_dados_variavel);
-  //calcular quantidade de cada item
-  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
+  //         Calcula a quantidade de cada item                         //
+  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => { //arrow function //
     acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
     return acumulador;
   }, {});
 
-  // Array vazia que irá conter {nome: 'nome_digitado', valor: valor_digitado}
+  //               Array vazia que irá conter nome:digitado, valor:digitado         //
   let array_valores = [];
-  // contador auxiliar
-  // percorrer todos os nomes digitados e adicionar na array "final" que será ordenada alfabeticamente //
+  //  Contador auxiliar, percorre todos os nomes digitados e adicionar na array final que será ordenada alfabeticamente //
   let valor_anterior;
   array_dados_variavel.forEach((dados_variavel) => {
     if (dados_variavel != valor_anterior) {
@@ -191,27 +178,26 @@ function tratamentoDeDadosNominal() {
     total_dados.push(parseFloat(t.qtde));
   });
 
-  // Somatório total
+  //                      Somatório total                     //
   let resultado = total_dados.reduce(
     (acumulador, item) => acumulador + item,
     0
   );
 
-  //calculo FA
-  //cont aux q
+  //        Cálculo FA - Contador auxiliar de quantidade            //
   let k = 0;
   let l = 0;
-  // o primeiro valor
-  // enquanto percorre, soma quantidade
-  array_valores.forEach((element) => {
+
+  //    O primeiro valor, enquanto percorre, soma quantidade               //
+  array_valores.forEach((element) => {      //arrow function ou função flecha //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
-    //Caso base, caso seja primeira vez no laco o FA eh o valor do item mesmo
+    //   Caso base, caso seja primeira vez no laço o FA é o valor do item mesmo  //
     if (k == 0) {
       element.fa = parseFloat(element.qtde);
-      //caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual
+    //   Caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual //
     } else if (k > 0) {
-      //fa anterior q-1                        //valor do item atual
+      //                   FA anterior q-1 - Valor do item atual                     //
       element.fa =
         parseFloat(array_valores[k - 1].fa) + parseFloat(element.qtde);
     }
@@ -229,7 +215,301 @@ function tratamentoDeDadosNominal() {
   return array_valores;
 }
 
-//criando tabela discreta
+//------------------------------------------------------------------------------//
+//                 Começo da Variavel Qualitativa Ordinal                      //
+// O trabalho 02 de Estrutura de Dados se encontra nos codigos dessa variavel //
+
+function tratamentoDeDadosOrdinal() {
+  //         Recebe os dados do input      //
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
+  let dados_incorretos = false;
+  //            Dividi os dados            //
+  //       let array_variavel = variavel ( ; )  //
+  let array_dados_variavel = dadosVar.split(';');
+  //       Divide os dados alfabeticamente    //
+  array_dados_variavel = Ordem(array_dados_variavel); // Essencial para a ordenação QuickSort //
+  //   console.log(array_dados_variavel); Calcula quantidade de cada item    //
+  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => { //arrow function ou função flecha //
+    acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
+    return acumulador;
+  }, {});
+
+  //        Array vazia que irá conter nome: digitado, valor: digitado      //
+  let array_valores = [];
+  // Contador auxiliar, percorre todos os nomes digitados e adicionar na array final que será ordenada alfabeticamente //
+  let valor_anterior;
+  array_dados_variavel.forEach((dados_variavel) => {
+    if (dados_variavel != valor_anterior) {
+      array_valores.push({
+        valor: dados_variavel,
+        qtde: quantidade_dados[dados_variavel],
+      });
+    }
+    valor_anterior = dados_variavel;
+  });
+
+  //----------------------------------------------------------------------------//
+  //Trabalho 02 Estrutura de Dados-Prof Fausto Cintra                          //
+  //Ordena de acordo com usuário                                              //
+  //Percorrer array de valores e verificar se são iguais aos dados ordenados //
+
+  ordem_dados.forEach((valor) => { //arrow function //
+    if (array_dados_variavel.includes(valor) !== true) {
+      dados_incorretos = true;
+      return;
+    }
+  });
+
+  if (dados_incorretos === true) {
+    alert('OS VALORES DIGITADOS NÃO ESTÃO NOS DADOS!');
+    return false;
+  }
+
+  let array_valores_ordenado = [];
+  ordem_dados.forEach((valor_ordem) => {
+    array_valores.forEach((item) => {
+      if (item.valor === valor_ordem) {
+        array_valores_ordenado.push(item);
+      }
+    });
+  });
+
+  let total_dados = [];
+  array_valores_ordenado.forEach((t) => {
+    total_dados.push(parseFloat(t.qtde));
+  });
+
+  // Somatório total //
+  let resultado = total_dados.reduce(
+    (acumulador, item) => acumulador + item,
+    0
+  );
+
+  //      Calculo da FA - Contador auxiliar de quantidade              //
+  let k = 0;
+  let l = 0;
+  //     O primeiro valor, enquanto percorre, soma quantidade //
+  array_valores_ordenado.forEach((element) => { //arrow function //
+    element.fi = element.qtde;
+    element.fr_porcento = (element.qtde * 100) / resultado;
+    //    Caso base, seja primeira vez no laço o FA eh o valor do item mesmo         //
+    if (k == 0) {
+      element.fa = parseFloat(element.qtde);
+      //   Caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual //
+    } else if (k > 0) {
+      //  FA anterior q-1 - Valor do item atual         //
+      element.fa =
+        parseFloat(array_valores_ordenado[k - 1].fa) + parseFloat(element.qtde);
+    }
+    k++;
+    if (l == 0) {
+      element.fa_porcento = parseFloat(element.fr_porcento);
+    } else if (l > 0) {
+      element.fa_porcento =
+        parseFloat(array_valores_ordenado[l - 1].fa_porcento) +
+        parseFloat(element.fr_porcento);
+    }
+    l++;
+  });
+
+  return array_valores_ordenado;
+}
+
+// Moda é o número ou palavra que aparece o maior número de vezes //
+function modaOrdinal() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = Ordem(array_dados_variavel);
+  let entrada = array_dados_variavel;
+  let maior = null;
+  let ocorrenciasMaior = -1;
+  let contagem = 1;
+  for (let i = 1; i <= entrada.length; i++) {
+    if (i < entrada.length && entrada[i] == entrada[i - contagem]) contagem++;
+    else if (contagem > ocorrenciasMaior) {
+      maior = entrada[i - 1];
+      ocorrenciasMaior = contagem;
+    }
+  }
+
+  return maior;
+}
+
+// Mediana corresponde ao valor central de um conjunto de valores ordenados //
+function medianaNominal() {
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = Ordem(array_dados_variavel);
+  let md = array_dados_variavel;
+  let valor_mediana = '';
+  var posicao = md.length / 2;
+  let qtde = md.length;
+  let pos_elemento = '';
+  
+  if (qtde % 2 == 0) {
+    if (md[posicao - 1] == md[posicao]) {
+      //  Se for valores iguais, ele já declara que aquela é a mediana //
+      valor_mediana = md[posicao];
+      return valor_mediana;
+    } else {
+      //  Se não for, aqui ele mostra o calculo da mediana //
+      valor_mediana = (md[posicao] + md[posicao - 1]) / 2; // Segunda formula da mediana //
+      return valor_mediana;
+    }
+  } else {
+    // Se a posição for impar, ele da o numero da posição direto arredondando a posição com a função pronta math.round //
+    // Mostra a posição do elemento             //
+    pos_elemento = Math.ceil(posicao) - 1;
+    //  Pega a posicao do elemento e mostra o valor do elemento //
+    return md[pos_elemento];
+  }
+}
+
+//-----------------------------------------------------------------------//
+function criarTabelaOrd() {
+  limparResultados();
+  let corpo = document.querySelector('tbody');
+  let div_tabela_discreta = document.getElementById(
+    'div_tabela_discreta_nominal_ordinal'
+  );
+  div_tabela_discreta.style.display = 'block';
+
+  array_valores = tratamentoDeDadosOrdinal();
+
+  if (array_valores === false) {
+    return;
+  }
+
+  //  Moda é o valor que ocorre com maior frequência ou o valor mais comum em um conjunto de dados //
+  valor_moda = modaOrdinal();
+  let valor_mediana = medianaNominal();
+  //      Mostra a mediana na tela      //
+  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
+  //      Mostra a media na tela    //
+  texto_media.innerHTML = 'Media: Nao tem <br>';
+  //      Mostra o nome da tabela  //
+  let nome_tabela = document.getElementById('nome_tabela');
+  nome_tabela.innerHTML = 'Qualitativa Ordinal';
+  //      Mostra a moda na tela   //
+  let texto_moda = document.getElementById('texto_moda');
+  texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
+  //      Mostra o desvio padrão      //
+  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
+  texto_desvio_padrao.innerHTML = `Desvio Padrão: Nao tem <b>`;
+  //      Mostrar o coeficiente de varancia     //
+  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
+  texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
+  // Cria uma linha <tr>, com algumas colunas (células) <td>,depois dá pra utiliar aqui em abaixo //
+  array_valores.forEach((e) => { //arrow function //
+    let linha = document.createElement('tr');
+    let campoDados = document.createElement('tr');
+    let campo_fr_porcento = document.createElement('td');
+    let campo_fa = document.createElement('td');
+    let campo_fa_porcento = document.createElement('td');
+    let campoVariavel = document.createElement('td');
+    let texto_fa = document.createTextNode(e.fa);
+    let texto_fr_porcento = document.createTextNode(Math.floor(e.fr_porcento));
+    let texto_fa_porcento = document.createTextNode(Math.floor(e.fa_porcento));
+    let textoVariavel = document.createTextNode(e.valor);
+    let texto_fi = document.createTextNode(e.fi);
+    campoDados.appendChild(texto_fi);
+    campoVariavel.appendChild(textoVariavel);
+    campo_fr_porcento.appendChild(texto_fr_porcento);
+    campo_fa.appendChild(texto_fa);
+    campo_fa_porcento.appendChild(texto_fa_porcento);
+    linha.appendChild(campoVariavel);
+    linha.appendChild(campoDados);
+    linha.appendChild(campo_fr_porcento);
+    linha.appendChild(campo_fa);
+    linha.appendChild(campo_fa_porcento);
+    corpo.appendChild(linha);
+  });
+  gerarGraficoQualitativaOrdinal();
+}
+
+//    Função geradora do grafico Ordinal        //
+function gerarGraficoQualitativaOrdinal() {
+  array_valores = tratamentoDeDadosOrdinal();
+  array_label = [];
+  array_data = [];
+  colors = [];
+
+  //    Pode se gerar as cores tambem aqui     //
+  array_valores.forEach((e) => {
+    array_label.push(e.valor);
+    array_data.push(e.fr_porcento);
+    colors.push(getRandomColor());
+  });
+
+  let dadosVar = document.getElementById('dados_variavel').value;
+  let nome = document.getElementById('nome_variavel').value;
+  let array_dados_variavel = dadosVar.split(';');
+  array_dados_variavel = Ordem(array_dados_variavel);
+  let ctx = document.getElementById('myChart');
+  let grafico = new Chart(ctx, {
+    //    Tipo de gráfico    //
+    type: 'pie',
+    data: {
+      labels: array_label,
+      datasets: [
+        {
+          label: nome,
+          backgroundColor: colors,
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          data: array_data,
+        },
+      ],
+    },
+  });
+}
+
+
+//-----------------------------------------------------------------------------------------------------  //
+//----------------------------------------------------------------------------------------------------  //
+//  Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020             //
+//  Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort até 18/11/20(6,0 pontos) //
+//  Função de ordenção Quicksort extraida das aulas do 2 semestre de Estrutura de Dados              //
+
+
+function troca(vet, i, j) {
+  let aux = vet[i];
+  vet[i] = vet[j];
+  vet[j] = aux;
+}
+
+function Ordem(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
+  if (posFim > posIni) { // Garante pelo menos 2 elementos na ordenação //
+    const posPivot = posFim; // Última posição //
+    let posDiv = posIni - 1;
+    for (let i = posIni; i < posFim; i++) {
+      if (vet[i] < vet[posPivot] && i != posDiv) {
+        posDiv++;
+        troca(vet, i, posDiv);
+      }
+    }
+    posDiv++; // Incremento final para encontrar a posição correta do pivô //
+    
+    troca(vet, posDiv, posPivot);
+
+    // Chamadas recursivas ao quickSort //
+    Ordem(vet, fnComp, posIni, posDiv - 1); // Lado esquerdo //
+
+    Ordem(vet, fnComp, posDiv + 1, posFim); // Lado direito //
+  }
+  return vet;
+}
+
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
+
+
+//-------------------------------------------------------------------//
+//           Criando tabela discreta                                //
+
 function criarTabelaDiscreta() {
   limparResultados();
   let div_tabela_discreta = document.getElementById(
@@ -239,7 +519,7 @@ function criarTabelaDiscreta() {
 
   const tipo_desvio = document.getElementById('tipo_desvio').value;
   let corpo = document.querySelector('tbody');
-  //limpar tela
+  //      Limpa a tela       //
   corpo.innerHTML = '';
   let array_valores = tratamentoDeDados();
   let media_discreta = media(array_valores);
@@ -255,30 +535,31 @@ function criarTabelaDiscreta() {
     desvio_padrao,
     media_discreta
   );
-  //mostrar nome tabela
+  //      Mostra o nome da tabela     //
   let nome_tabela = document.getElementById('nome_tabela');
 
   nome_tabela.innerHTML = 'Quantitativa Discreta';
-  //motrar mediana
+  //      Mostra a mediana      //
   texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
-  //motrar media
+  //      Mostra a media      //
   texto_media.innerHTML = `Media: ${media_discreta.toFixed(2)} <br>`;
-  //mostrar moda
+  //      Mostra a moda     //
   let texto_moda = document.getElementById('texto_moda');
   texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <b>`;
-  //motrar desvio padrao
+  //      Mostra o desvio padrão      //
   let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
   texto_desvio_padrao.innerHTML = `Desvio Padrão ${desvio_padrao} <b>`;
-  //mostrar coeficiente de varancia
+  //      Mostra o coeficiente de varancia      //
   let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
   texto_coeficiente.innerHTML = `Coeficiente de Variacao ${coeficiente_variacao.toFixed(
     2
   )} <b>`;
-  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
-  // que depois dá pra usar aqui abaixo
-  // let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);
-  //   console.log(soma_total);
-  array_valores.forEach((e) => {
+
+  // Esse loop cria uma linha <tr>, com algumas colunas (células) <td> - Depois dá para utilizar aqui em abaixo            //
+  // Arrow Function: let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0); //
+  
+
+  array_valores.forEach((e) => { //arrow function //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -305,15 +586,15 @@ function criarTabelaDiscreta() {
   gerarGraficoDiscreta();
 }
 
-// Função geradora do gráfico //
+//    Função geradora do gráfico     //
 function gerarGraficoDiscreta() {
   array_valores = tratamentoDeDados();
   array_label = [];
   array_data = [];
   colors = [];
 
-  // Pode se gerar as cores tambem por aqui //
-  array_valores.forEach((e) => {
+  //      Pode se gerar as cores aqui tambem       //
+  array_valores.forEach((e) => { //arrow function //
     array_label.push(e.valor);
     array_data.push(Math.round(e.fr_porcento));
     colors.push(getRandomColor());
@@ -324,9 +605,9 @@ function gerarGraficoDiscreta() {
   array_dados_variavel = Ordem(array_dados_variavel);
   let ctx = document.getElementById('myChart');
   let grafico = new Chart(ctx, {
-    // Tipo grafico //
+    //             Tipo grafico       //
     type: 'bar',
-    // Data para o grafico //
+    //      Data para o grafico      //
     data: {
       labels: array_label,
       datasets: [
@@ -352,14 +633,16 @@ function gerarGraficoDiscreta() {
   });
 }
 
+//  Média simples é a soma do valor obtido em todos os dados, dividido pelo número de dados //
 function media(valores) {
-  // Cálculo de média para variável discreta/continua
+
+  //  Cálculo de média para as variáveis discreta e continua   //
   let total_qtde = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,
+    (acumulador, item) => acumulador + item.qtde,  // arrow function //
     0
   );
   let total_valores = valores.reduce(
-    (acumulador, item) => acumulador + item.valor * item.qtde,
+    (acumulador, item) => acumulador + item.valor * item.qtde, // arrow function //
     0
   );
   let media = total_valores / total_qtde;
@@ -367,7 +650,8 @@ function media(valores) {
   return media;
 }
 
-//calculando moda
+// Moda é o valor que ocorre com maior frequência ou o valor mais comum em um conjunto de dados    //
+
 function moda() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
@@ -386,6 +670,8 @@ function moda() {
 
   return maior;
 }
+
+//    Mediana corresponde ao valor central de um conjunto de valores ordenados //
 function mediana() {
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
@@ -395,34 +681,35 @@ function mediana() {
   var posicao = md.length / 2;
   let qtde = md.length;
   let pos_elemento = '';
-  //console.log(posicao);
-  if (qtde % 2 == 0) {
+
+    if (qtde % 2 == 0) {
     if (md[posicao - 1] == md[posicao]) {
-      //Se for igual ele já declara que aquela é a mediana
+      //  Se for igual ele já declara que aquela é a mediana  //
       valor_mediana = md[posicao];
       return valor_mediana;
     } else {
-      //Se não for aqui ele mostra o calculo da mediana
-      valor_mediana = (md[posicao] + md[posicao - 1]) / 2;
+      //  Se não for aqui ele mostra o calculo da mediana //
+      valor_mediana = (md[posicao] + md[posicao - 1]) / 2; // Segunda formula da mediana //
       return valor_mediana;
     }
   } else {
-    //Se a posição for impar , ele da o numero da posição direto arredondando a posição com a função pronta math.round, mostrando a posicao do elemento
+    //  Se a posição for impar, ele da o numero da posição direto arredondando a posição com a função pronta math.round //
+    //    Mostra a posicao do elemento    //
     pos_elemento = Math.ceil(posicao) - 1;
-    //pegar a posicao do elemento e mostrar o valor do elemento
+    //  Pega a posição do elemento e mostrar seu valor  //
     return md[pos_elemento];
   }
 }
+
 function desvioPadraoAmostra(valores, media) {
-  // somatorio fi
+  //       Somatorio FI           //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,
+    (acumulador, item) => acumulador + item.qtde, // arrow function //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) =>
-      acumulador + Math.pow(item.valor - media, 2) * item.qtde,
+    (acumulador, item) => acumulador + Math.pow(item.valor - media, 2) * item.qtde, // arrow function //
     0
   );
 
@@ -434,14 +721,14 @@ function desvioPadraoAmostra(valores, media) {
 }
 
 function desvioPadraoPopulacao(valores, media) {
-  // somatorio fi
+  //        Somatorio FI          //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,
+    (acumulador, item) => acumulador + item.qtde, //arrow function //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) =>
+    (acumulador, item) => // arrow function //
       acumulador + Math.pow(item.valor - media, 2) * item.qtde,
     0
   );
@@ -465,30 +752,30 @@ function criarTabelaNom() {
   div_tabela_discreta.style.display = 'block';
 
   let corpo = document.querySelector('tbody');
-  //limpar tela
+  //          Limpa a tela       //
   corpo.innerHTML = '';
   array_valores = tratamentoDeDadosNominal();
   valor_moda = modaOrdinal();
   let valor_mediana = medianaNominal();
-  //mostrar mediana na tela
+  //       Mostra a mediana na tela       //
   texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
-  //mostrar media na tela
+  //        Mostra a media na tela       //
   texto_media.innerHTML = 'Media: Nao tem <br>';
-  // nome tabela
+  //         Mostra o nome da tabela      //
   let nome_tabela = document.getElementById('nome_tabela');
   nome_tabela.innerHTML = 'Qualitativa Nominal';
-  //mostrar moda na tela
+  //       Mostra a moda na tela       //
   let texto_moda = document.getElementById('texto_moda');
   texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
-  //motrar desvio padrao
+  //       Mostra o desvio padrão        //
   let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
   texto_desvio_padrao.innerHTML = `Desvio Padrão: Nao tem <b>`;
-  //mostrar coeficiente de varancia
+  //        Mostra o coeficiente de varancia        //
   let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
   texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
-  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
-  // que depois dá pra usar aqui abaixo
-  array_valores.forEach((e) => {
+  // Esse loop cria uma linha <tr> com algumas colunas (células) <td>, depois dá para utilizar aqui abaixo //
+
+  array_valores.forEach((e) => { //arrow function //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -522,8 +809,8 @@ function gerarGraficoQualitativaNominal() {
   array_data = [];
   colors = [];
 
-  // Pode se gerar as cores tambem aqui //
-  array_valores.forEach((e) => {
+  //  Pode se gerar as cores aqui tambem   //
+  array_valores.forEach((e) => { // arrow function //
     array_label.push(e.valor);
     array_data.push(e.fr_porcento);
     colors.push(getRandomColor());
@@ -535,9 +822,9 @@ function gerarGraficoQualitativaNominal() {
   array_dados_variavel = Ordem(array_dados_variavel);
   let ctx = document.getElementById('myChart');
   let grafico = new Chart(ctx, {
-    // Tipo de grafico //
+    //    Tipo de gráfico      //
     type: 'pie',
-    // Data para o grafico //
+    //     Data para o gráfico   //
     data: {
       labels: array_label,
       datasets: [
@@ -552,14 +839,17 @@ function gerarGraficoQualitativaNominal() {
   });
 }
 
+//----------------------------------------------------------------------//
+//        Começo da Variavel Quantitativa Continua                      //
+
 function tratamentoDeDadosContinua() {
-  //organizar em ordem crescente done
-  //descobrir a amplitude
+  //  Organizar em ordem crescente e Descobri a amplitude      //
+
   let dadosVar = document.getElementById('dados_variavel').value;
   let array_dados_variavel = dadosVar.split(';').map(Number);
   array_dados_variavel = Ordem(array_dados_variavel);
   let at = array_dados_variavel.slice(-1) - array_dados_variavel[0];
-  //quantidade de classes
+  //    Quantidade de classes    //
   let classe = [];
   let qtde_classes = Math.floor(Math.sqrt(array_dados_variavel.length));
   classe[0] = qtde_classes - 1;
@@ -571,7 +861,6 @@ function tratamentoDeDadosContinua() {
   let intervalo_classes = 0;
   while (aux) {
     at++;
-    // for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
       if (at % classe[j] == 0 && at / classe[j] > 1) {
         aux = false;
@@ -580,13 +869,13 @@ function tratamentoDeDadosContinua() {
         break;
       }
     }
-    // }
+    
   }
 
   let array_final_continua = [];
-  // montar tabela com as linhas separando intervalos de classe
+  //        Montar tabela com as linhas separando intervalos de classe             //
   let valor_anterior = array_dados_variavel[0] - 1;
-  // precisamos navegar a qtde de classes separando pelo valor do intervalo
+  //     Precisa navegar a quantidade de classes separando pelo valor do intervalo  //
   for (let i = 0; i < qtde_linha; i++) {
     let limite_classe = valor_anterior + intervalo_classes;
 
@@ -602,7 +891,7 @@ function tratamentoDeDadosContinua() {
     });
 
     valor_anterior = valor_anterior + intervalo_classes;
-    // a quantide de itens por intervalor é o FI
+    //     A quantide de itens por intervalor é o FI     //
   }
 
   let total_dados = [];
@@ -610,27 +899,25 @@ function tratamentoDeDadosContinua() {
     total_dados.push(parseFloat(t.qtde));
   });
 
-  // Somatório total
+  //       Somatório total        //
   let resultado = total_dados.reduce(
     (acumulador, item) => acumulador + item,
     0
   );
 
-  //calculo FA
-  //cont aux q
+  //     Cálculo FA - Contador auxiliar de quantidade          //
   let k = 0;
   let l = 0;
-  // o primeiro valor
-  // enquanto percorre, soma quantidade
-  array_final_continua.forEach((element) => {
+  //    O primeiro valor, enquanto percorre, soma quantidade       //
+  array_final_continua.forEach((element) => { // arrow function //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
-    //Caso base, caso seja primeira vez no laco o FA eh o valor do item mesmo
+    //    Caso base, caso seja primeira vez no laço o FA é o valor do item mesmo  //
     if (k == 0) {
       element.fa = parseFloat(element.qtde);
-      //caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual
+      //  Caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual   //
     } else if (k > 0) {
-      //fa anterior q-1                        //valor do item atual
+      //    FA anterior q-1 - valor do item atual    //
       element.fa =
         parseFloat(array_final_continua[k - 1].fa) + parseFloat(element.qtde);
     }
@@ -654,7 +941,7 @@ function criarTabelaContinua() {
   div_tabela_continua.style.display = 'block';
 
   let corpo = document.getElementById('tabela_continua');
-  //limpar tela
+  //       Limpa a tela      //
   corpo.innerHTML = '';
   let array_valores = tratamentoDeDadosContinua();
   let media_continua = mediaContinua(array_valores);
@@ -669,30 +956,32 @@ function criarTabelaContinua() {
     media_continua
   );
 
-  //motrar desvio padrao
+  //---------------------------------------------------------//
+  //                 Mostrar o desvio padrão                 //
+
   let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
   texto_desvio_padrao.innerHTML = `Desvio Padrão ${desvio_padrao} <b>`;
-  //mostrar coeficiente de varancia
+  //        Mostra o coeficiente de varancia        //
   let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
   texto_coeficiente.innerHTML = `Coeficiente de Variacao ${coeficiente_variacao_continua.toFixed(
     2
   )} <b>`;
-  //mostrar nome tabela
+  //         Mostra nome da tabela      //
   let nome_tabela = document.getElementById('nome_tabela');
 
   nome_tabela.innerHTML = 'Quantitativa Continua';
-  //motrar mediana
+  //         Mostra a mediana        //
   texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
-  //motrar media
+  //        Mostra a media        //
   texto_media.innerHTML = `Media: ${media_continua.toFixed(2)} <br>`;
-  //mostrar moda
+  //         Mostra a moda        //
   let texto_moda = document.getElementById('texto_moda');
   texto_moda.innerHTML = `Moda: ${valor_moda.toFixed(2)} <br>`;
-  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
-  // que depois dá pra usar aqui abaixo
-  // let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);
-  //   console.log(soma_total);
-  array_valores.forEach((e) => {
+  //  Esse loop cria uma linha <tr>, com algumas colunas (células) <td>,depois dá para utilizar ele aqui embaixo   //
+  //  let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);        //
+  //   console.log(soma_total);   //
+
+  array_valores.forEach((e) => { //arrow function //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -723,14 +1012,16 @@ function criarTabelaContinua() {
   gerarGraficoContinua();
 }
 
+//----------------------------------------------------------------------------------------------//
+
 function mediaContinua(valores) {
   let total_qtde = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,
+    (acumulador, item) => acumulador + item.qtde, // arrow function //
     0
   );
 
   let total_valores = valores.reduce(
-    (acumulador, item) => acumulador + item.xi * item.qtde,
+    (acumulador, item) => acumulador + item.xi * item.qtde, // arrow function //
     0
   );
 
@@ -740,14 +1031,14 @@ function mediaContinua(valores) {
 }
 
 function desvioPadraoPopulacaoContinua(valores, media) {
-  // somatorio fi
+  //    Somatório de FI    //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,
+    (acumulador, item) => acumulador + item.qtde, // arrow function //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) => acumulador + Math.pow(item.xi - media, 2) * item.qtde,
+    (acumulador, item) => acumulador + Math.pow(item.xi - media, 2) * item.qtde, // arrow function //
     0
   );
 
@@ -755,6 +1046,8 @@ function desvioPadraoPopulacaoContinua(valores, media) {
 
   return desvio_padrao;
 }
+
+//----------------------------------------------------------------------------------//
 
 function gerarGraficoContinua() {
   let array_valores = tratamentoDeDadosContinua();
@@ -800,295 +1093,8 @@ function gerarGraficoContinua() {
   });
 }
 
-function tratamentoDeDadosOrdinal() {
-  //recebendo dados do input
-  let dadosVar = document.getElementById('dados_variavel').value;
-  let ordem_dados = document.getElementById('ordem_valores').value.split(';');
-  let dados_incorretos = false;
-  //dividindo os dados
-  // let array_variavel = variavel;
-  let array_dados_variavel = dadosVar.split(';');
-  //alfabeticamente
-  array_dados_variavel = Ordem(array_dados_variavel);
-  ///console.log(array_dados_variavel);
-  //calcular quantidade de cada item
-  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => {
-    acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
-    return acumulador;
-  }, {});
+//--------------------------------------------------------------------//
 
-  // Array vazia que irá conter {nome: 'nome_digitado', valor: valor_digitado}
-  let array_valores = [];
-  // contador auxiliar
-  // percorrer todos os nomes digitados e adicionar na array "final" que será ordenada alfabeticamente
-  let valor_anterior;
-  array_dados_variavel.forEach((dados_variavel) => {
-    if (dados_variavel != valor_anterior) {
-      array_valores.push({
-        valor: dados_variavel,
-        qtde: quantidade_dados[dados_variavel],
-      });
-    }
-    valor_anterior = dados_variavel;
-  });
-
-  // TODO: ordenar de acordo com usuário
-  // percorrer array de valores e verificar se "batem" com os dados ordenados
-  ordem_dados.forEach((valor) => {
-    if (array_dados_variavel.includes(valor) !== true) {
-      dados_incorretos = true;
-      return;
-    }
-  });
-
-  if (dados_incorretos === true) {
-    alert('Os valores digitados não estão nos dados!!!');
-    return false;
-  }
-
-  let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
-    array_valores.forEach((item) => {
-      if (item.valor === valor_ordem) {
-        array_valores_ordenado.push(item);
-      }
-    });
-  });
-
-  let total_dados = [];
-  array_valores_ordenado.forEach((t) => {
-    total_dados.push(parseFloat(t.qtde));
-  });
-
-  // Somatório total
-  let resultado = total_dados.reduce(
-    (acumulador, item) => acumulador + item,
-    0
-  );
-
-  //calculo FA
-  //cont aux q
-  let k = 0;
-  let l = 0;
-  // o primeiro valor
-  // enquanto percorre, soma quantidade
-  array_valores_ordenado.forEach((element) => {
-    element.fi = element.qtde;
-    element.fr_porcento = (element.qtde * 100) / resultado;
-    //Caso base, caso seja primeira vez no laco o FA eh o valor do item mesmo
-    if (k == 0) {
-      element.fa = parseFloat(element.qtde);
-      //caso seja um item depois do primeiro, soma o valor do FA do anterior com o atual
-    } else if (k > 0) {
-      //fa anterior q-1                        //valor do item atual
-      element.fa =
-        parseFloat(array_valores_ordenado[k - 1].fa) + parseFloat(element.qtde);
-    }
-    k++;
-    if (l == 0) {
-      element.fa_porcento = parseFloat(element.fr_porcento);
-    } else if (l > 0) {
-      element.fa_porcento =
-        parseFloat(array_valores_ordenado[l - 1].fa_porcento) +
-        parseFloat(element.fr_porcento);
-    }
-    l++;
-  });
-
-  return array_valores_ordenado;
-}
-
-function modaOrdinal() {
-  let dadosVar = document.getElementById('dados_variavel').value;
-  let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = Ordem(array_dados_variavel);
-  let entrada = array_dados_variavel;
-  let maior = null;
-  let ocorrenciasMaior = -1;
-  let contagem = 1;
-  for (let i = 1; i <= entrada.length; i++) {
-    if (i < entrada.length && entrada[i] == entrada[i - contagem]) contagem++;
-    else if (contagem > ocorrenciasMaior) {
-      maior = entrada[i - 1];
-      ocorrenciasMaior = contagem;
-    }
-  }
-
-  return maior;
-}
-
-function medianaNominal() {
-  let dadosVar = document.getElementById('dados_variavel').value;
-  let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = Ordem(array_dados_variavel);
-  let md = array_dados_variavel;
-  let valor_mediana = '';
-  var posicao = md.length / 2;
-  let qtde = md.length;
-  let pos_elemento = '';
-  //console.log(posicao);
-  if (qtde % 2 == 0) {
-    if (md[posicao - 1] == md[posicao]) {
-      //Se for igual ele já declara que aquela é a mediana
-      valor_mediana = md[posicao];
-      return valor_mediana;
-    } else {
-      //Se não for aqui ele mostra o calculo da mediana
-      valor_mediana = (md[posicao] + md[posicao - 1]) / 2;
-      return valor_mediana;
-    }
-  } else {
-    //Se a posição for impar , ele da o numero da posição direto arredondando a posição com a função pronta math.round, mostrando a posicao do elemento
-    pos_elemento = Math.ceil(posicao) - 1;
-    //pegar a posicao do elemento e mostrar o valor do elemento
-    return md[pos_elemento];
-  }
-}
-
-function criarTabelaOrd() {
-  limparResultados();
-  let corpo = document.querySelector('tbody');
-  let div_tabela_discreta = document.getElementById(
-    'div_tabela_discreta_nominal_ordinal'
-  );
-  div_tabela_discreta.style.display = 'block';
-
-  array_valores = tratamentoDeDadosOrdinal();
-
-  if (array_valores === false) {
-    return;
-  }
-
-  valor_moda = modaOrdinal();
-  let valor_mediana = medianaNominal();
-  //mostrar mediana na tela
-  texto_mediana.innerHTML = `Mediana: ${valor_mediana} <br>`;
-  //mostrar media na tela
-  texto_media.innerHTML = 'Media: Nao tem <br>';
-  // nome tabela
-  let nome_tabela = document.getElementById('nome_tabela');
-  nome_tabela.innerHTML = 'Qualitativa Ordinal/Nominal';
-  //mostrar moda na tela
-  let texto_moda = document.getElementById('texto_moda');
-  texto_moda.innerHTML = `Moda: ${valor_moda} <b>`;
-  //motrar desvio padrao
-  let texto_desvio_padrao = document.getElementById('texto_desvio_padrao');
-  texto_desvio_padrao.innerHTML = `Desvio Padrão: Nao tem <b>`;
-  //mostrar coeficiente de varancia
-  let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
-  texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
-  // O que tem aqui é q esse loop cria uma linha <tr>, com algumas colunas (células) <td>
-  // que depois dá pra usar aqui abaixo
-  array_valores.forEach((e) => {
-    let linha = document.createElement('tr');
-    let campoDados = document.createElement('tr');
-    let campo_fr_porcento = document.createElement('td');
-    let campo_fa = document.createElement('td');
-    let campo_fa_porcento = document.createElement('td');
-    let campoVariavel = document.createElement('td');
-    let texto_fa = document.createTextNode(e.fa);
-    let texto_fr_porcento = document.createTextNode(Math.floor(e.fr_porcento));
-    let texto_fa_porcento = document.createTextNode(Math.floor(e.fa_porcento));
-    let textoVariavel = document.createTextNode(e.valor);
-    let texto_fi = document.createTextNode(e.fi);
-    campoDados.appendChild(texto_fi);
-    campoVariavel.appendChild(textoVariavel);
-    campo_fr_porcento.appendChild(texto_fr_porcento);
-    campo_fa.appendChild(texto_fa);
-    campo_fa_porcento.appendChild(texto_fa_porcento);
-    linha.appendChild(campoVariavel);
-    linha.appendChild(campoDados);
-    linha.appendChild(campo_fr_porcento);
-    linha.appendChild(campo_fa);
-    linha.appendChild(campo_fa_porcento);
-    corpo.appendChild(linha);
-  });
-  gerarGraficoQualitativaOrdinal();
-}
-
-//Função geradora do grafico //
-function gerarGraficoQualitativaOrdinal() {
-  array_valores = tratamentoDeDadosOrdinal();
-  array_label = [];
-  array_data = [];
-  colors = [];
-
-  // Pode se gerar as cores tambem aqui //
-  array_valores.forEach((e) => {
-    array_label.push(e.valor);
-    array_data.push(e.fr_porcento);
-    colors.push(getRandomColor());
-  });
-
-  let dadosVar = document.getElementById('dados_variavel').value;
-  let nome = document.getElementById('nome_variavel').value;
-  let array_dados_variavel = dadosVar.split(';');
-  array_dados_variavel = Ordem(array_dados_variavel);
-  let ctx = document.getElementById('myChart');
-  let grafico = new Chart(ctx, {
-    // Tipo de grafico //
-    type: 'pie',
-    data: {
-      labels: array_label,
-      datasets: [
-        {
-          label: nome,
-          backgroundColor: colors,
-          borderColor: 'rgba(0, 0, 0, 0.1)',
-          data: array_data,
-        },
-      ],
-    },
-  });
-}
-
-//Trabalho-02 Estrutura de Dados/Prof Me Fausto Cintra-Grupo 09/Segundo semestre de 2020//
-//Trabalho-02 Estrutura de Dados/Inserir Algoritimo de Ordenação quickSort(6,0 pontos) //
-function troca(vet, i, j) {
-  let aux = vet[i];
-  vet[i] = vet[j];
-  vet[j] = aux;
-}
-
-function Ordem(vet, fnComp, posIni = 0, posFim = vet.length - 1) {
-  if (posFim > posIni) {
-    const posPivot = posFim;
-    let posDiv = posIni - 1;
-    for (let i = posIni; i < posFim; i++) {
-      if (vet[i] < vet[posPivot] && i != posDiv) {
-        posDiv++;
-        troca(vet, i, posDiv);
-      }
-    }
-    posDiv++;
-    troca(vet, posDiv, posPivot);
-
-    Ordem(vet, fnComp, posIni, posDiv - 1);
-
-    Ordem(vet, fnComp, posDiv + 1, posFim);
-  }
-  return vet;
-}
-
-//__________________________________________________________________________________//
-
-// Essa função lê o CSV
-function lerCSV() {
-  let fileInput = document.getElementById('arquivo');
-  let string_valores = '';
-  Papa.parse(fileInput.files[0], {
-    header: false,
-    complete: function (results) {
-      results.data[0].forEach((item) => {
-        string_valores += item + ';';
-      });
-      document.getElementById('dados_variavel').value = string_valores.slice(
-        0,
-        -1
-      );
-    },
-  });
-}
 
 function limparResultados() {
   let texto_media = document.getElementById('texto_media');
@@ -1140,6 +1146,88 @@ function limparResultados() {
     '<canvas id="myChart"></canvas>';
 }
 
+
+//     Abaixo se encontra todas as funções ligadas as "Medidas Separatrizes"                      //
+//-----------------------------------------------------------------------------------------------//
+
+function calcularSeparatriz() {
+  let tipo_tabela = document.getElementById('tipo_tabela').value;
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+
+  if (tipo_tabela === 'nominal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilQualitativaNominal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilQualitativaNominal();
+    } else if (tipo_separatriz === 'decil') {
+      decilQualitativaNominal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilNominal();
+    }
+  }
+  if (tipo_tabela === 'ordinal') {
+    if (tipo_separatriz === 'quartil') {
+      quartilOrdinal();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilOrdinal();
+    } else if (tipo_separatriz === 'decil') {
+      decilOrdinal();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilOrdinal();
+    }
+  }
+  if (tipo_tabela === 'discreta') {
+    if (tipo_separatriz === 'quartil') {
+      quartilDiscreta();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilDiscreta();
+    } else if (tipo_separatriz === 'decil') {
+      decilDiscreta();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilDiscreta();
+    }
+  }
+  if (tipo_tabela === 'continua') {
+    if (tipo_separatriz === 'quartil') {
+      quartilContinua();
+    } else if (tipo_separatriz === 'quintil') {
+      quintilContinua();
+    } else if (tipo_separatriz === 'decil') {
+      decilContinua();
+    } else if (tipo_separatriz === 'percentil') {
+      percentilContinua();
+    }
+  }
+}
+
+//________________________________________________________________________//
+
+function mostrarSelectSeparatrizes(mostrar = true) {
+  let tipo_separatriz = document.getElementById('tipo_separatriz');
+  tipo_separatriz.style.display = mostrar ? 'block' : 'none';
+}
+
+//    Depois de selecionar a separatriz, mostrar as opções de cálculo    //
+function mostrarOpcaoSeparatriz() {
+  let valor_separatriz = document.getElementById('valor_separatriz');
+  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+  valor_separatriz.style.display = 'block';
+
+  if (tipo_separatriz === 'quartil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 4';
+  } else if (tipo_separatriz === 'quintil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 5';
+  } else if (tipo_separatriz === 'decil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 10';
+  } else if (tipo_separatriz === 'percentil') {
+    valor_separatriz.placeholder = 'Digite um valor entre 1 e 100';
+  } else if (tipo_separatriz === '') {
+    valor_separatriz.style.display = 'none';
+  }
+}
+
+//                    Cálculo separatriz Qualitativa Nominal                        //
+
 function quartilQualitativaNominal() {
   let dados = document.getElementById('dados_variavel').value.split(';');
   dados = Ordem(dados);
@@ -1187,52 +1275,8 @@ function percentilNominal() {
   valor_calculado.style.display = 'block';
 }
 
-function quartilDiscreta() {
-  let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = Ordem(dados);
-  let posicao = document.getElementById('valor_separatriz').value;
-  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
-  let quartil = dados[calculo - 1];
-
-  let valor_calculado = document.getElementById('valor_separatriz_calculado');
-  valor_calculado.value = quartil;
-  valor_calculado.style.display = 'block';
-}
-function quintilDiscreta() {
-  let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = Ordem(dados);
-  let posicao = document.getElementById('valor_separatriz').value;
-  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
-  let quintil = dados[calculo - 1];
-
-  let valor_calculado = document.getElementById('valor_separatriz_calculado');
-  valor_calculado.value = quintil;
-  valor_calculado.style.display = 'block';
-}
-
-function decilDiscreta() {
-  let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = Ordem(dados);
-  let posicao = document.getElementById('valor_separatriz').value;
-  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
-  let decil = dados[calculo - 1];
-
-  let valor_calculado = document.getElementById('valor_separatriz_calculado');
-  valor_calculado.value = decil;
-  valor_calculado.style.display = 'block';
-}
-
-function percentilDiscreta() {
-  let dados = document.getElementById('dados_variavel').value.split(';');
-  dados = Ordem(dados);
-  let posicao = document.getElementById('valor_separatriz').value;
-  let calculo = Math.ceil((dados.length * posicao) / 100);
-  let percentil = dados[calculo - 1];
-
-  let valor_calculado = document.getElementById('valor_separatriz_calculado');
-  valor_calculado.value = percentil;
-  valor_calculado.style.display = 'block';
-}
+//-----------------------------------------------------------------------------------//
+//                    Cálculo separatriz Qualitativa Ordinal                         //
 
 function quartilOrdinal() {
   let array_valores = document
@@ -1322,6 +1366,62 @@ function percentilOrdinal() {
   valor_calculado.style.display = 'block';
 }
 
+
+//-----------------------------------------------------------------------------------//
+//                    Cálculo separatriz Quantitativa Discreta                       //
+
+function quartilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((25 * dados.length * posicao) / 100);
+  let quartil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quartil;
+  valor_calculado.style.display = 'block';
+}
+function quintilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((20 * dados.length * posicao) / 100);
+  let quintil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = quintil;
+  valor_calculado.style.display = 'block';
+}
+
+function decilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((10 * dados.length * posicao) / 100);
+  let decil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = decil;
+  valor_calculado.style.display = 'block';
+}
+
+function percentilDiscreta() {
+  let dados = document.getElementById('dados_variavel').value.split(';');
+  dados = Ordem(dados);
+  let posicao = document.getElementById('valor_separatriz').value;
+  let calculo = Math.ceil((dados.length * posicao) / 100);
+  let percentil = dados[calculo - 1];
+
+  let valor_calculado = document.getElementById('valor_separatriz_calculado');
+  valor_calculado.value = percentil;
+  valor_calculado.style.display = 'block';
+}
+
+
+
+//-----------------------------------------------------------------------------------//
+//                    Cálculo separatriz Quantitativa Continua                        //
+
 function quartilContinua() {
   let dados = tratamentoDeDadosContinua();
   const total_dados = dados[dados.length - 1].fa;
@@ -1331,7 +1431,7 @@ function quartilContinua() {
   );
   let idx_classe = 0;
 
-  // aqui encontramos a classe que se refere a posição absoluta
+  //      Encontramos aqui a classe que se refere a posição absoluta       //
   for (let i = 0; i < dados.length; i++) {
     if (posicao_absoluta <= dados[i].fa) {
       idx_classe = i;
@@ -1339,7 +1439,7 @@ function quartilContinua() {
     }
   }
 
-  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  //  Formula: Quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes; //
   let fac_anterior = 0;
   if (idx_classe == 0) {
     fac_anterior = 0;
@@ -1364,7 +1464,7 @@ function quintilContinua() {
   );
   let idx_classe = 0;
 
-  // aqui encontramos a classe que se refere a posição absoluta
+  //    Encontramos aqui a classe que se refere a posição absoluta    //
   for (let i = 0; i < dados.length; i++) {
     if (posicao_absoluta <= dados[i].fa) {
       idx_classe = i;
@@ -1372,7 +1472,7 @@ function quintilContinua() {
     }
   }
 
-  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  // Formula: Quintil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes; //
   let fac_anterior = 0;
   if (idx_classe == 0) {
     fac_anterior = 0;
@@ -1397,7 +1497,7 @@ function decilContinua() {
   );
   let idx_classe = 0;
 
-  // aqui encontramos a classe que se refere a posição absoluta
+  //      Encontramos aqui a classe que se refere a posição absoluta    //
   for (let i = 0; i < dados.length; i++) {
     if (posicao_absoluta <= dados[i].fa) {
       idx_classe = i;
@@ -1405,7 +1505,7 @@ function decilContinua() {
     }
   }
 
-  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  // Formula: Decil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes; //
   let fac_anterior = 0;
   if (idx_classe == 0) {
     fac_anterior = 0;
@@ -1431,7 +1531,7 @@ function percentilContinua() {
   ).toFixed(2);
   let idx_classe = 0;
 
-  // aqui encontramos a classe que se refere a posição absoluta
+  //    Encontramos aqui a classe que se refere a posição absoluta     //
   for (let i = 0; i < dados.length; i++) {
     if (posicao_absoluta <= dados[i].fa) {
       idx_classe = i;
@@ -1439,7 +1539,7 @@ function percentilContinua() {
     }
   }
 
-  // quartil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  // Formula: Percentil = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes; //
   let fac_anterior = 0;
   if (idx_classe == 0) {
     fac_anterior = 0;
@@ -1461,7 +1561,7 @@ function medianaContinua() {
   let posicao_absoluta = ((50 * total_dados) / 100).toFixed(2);
   let idx_classe = 0;
 
-  // aqui encontramos a classe que se refere a posição absoluta
+  //    Encontramos aqui a classe que se refere a posição absoluta     //
   for (let i = 0; i < dados.length; i++) {
     if (posicao_absoluta <= dados[i].fa) {
       idx_classe = i;
@@ -1469,7 +1569,7 @@ function medianaContinua() {
     }
   }
 
-  // mediana = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes;
+  // Formula: Mediana = limite_inferior_classe + ((Posição - FAC anterior) / FI_qtde_elementos) * intervalo_classes; //
   let fac_anterior = 0;
   if (idx_classe == 0) {
     fac_anterior = 0;
@@ -1501,52 +1601,24 @@ function modaContinua() {
   return dados[idx_classe].xi;
 }
 
-function calcularSeparatriz() {
-  let tipo_tabela = document.getElementById('tipo_tabela').value;
-  let tipo_separatriz = document.getElementById('tipo_separatriz').value;
+//----------------------------------------------------------------------------------------//
+//Função extraida do trabalho da matéria de "Sistemas de Informação" do 2 semestre de ADS //
+//                        Essa função lê o CSV                                            //
 
-  if (tipo_tabela === 'nominal') {
-    if (tipo_separatriz === 'quartil') {
-      quartilQualitativaNominal();
-    } else if (tipo_separatriz === 'quintil') {
-      quintilQualitativaNominal();
-    } else if (tipo_separatriz === 'decil') {
-      decilQualitativaNominal();
-    } else if (tipo_separatriz === 'percentil') {
-      percentilNominal();
-    }
-  }
-  if (tipo_tabela === 'ordinal') {
-    if (tipo_separatriz === 'quartil') {
-      quartilOrdinal();
-    } else if (tipo_separatriz === 'quintil') {
-      quintilOrdinal();
-    } else if (tipo_separatriz === 'decil') {
-      decilOrdinal();
-    } else if (tipo_separatriz === 'percentil') {
-      percentilOrdinal();
-    }
-  }
-  if (tipo_tabela === 'discreta') {
-    if (tipo_separatriz === 'quartil') {
-      quartilDiscreta();
-    } else if (tipo_separatriz === 'quintil') {
-      quintilDiscreta();
-    } else if (tipo_separatriz === 'decil') {
-      decilDiscreta();
-    } else if (tipo_separatriz === 'percentil') {
-      percentilDiscreta();
-    }
-  }
-  if (tipo_tabela === 'continua') {
-    if (tipo_separatriz === 'quartil') {
-      quartilContinua();
-    } else if (tipo_separatriz === 'quintil') {
-      quintilContinua();
-    } else if (tipo_separatriz === 'decil') {
-      decilContinua();
-    } else if (tipo_separatriz === 'percentil') {
-      percentilContinua();
-    }
-  }
+function lerCSV() {
+  let fileInput = document.getElementById('arquivo');
+  let string_valores = '';
+  Papa.parse(fileInput.files[0], {
+    header: false,
+    complete: function (results) {
+      results.data[0].forEach((item) => {
+        string_valores += item + ';';
+      });
+      document.getElementById('dados_variavel').value = string_valores.slice(
+        0,
+        -1
+      );
+    },
+  });
 }
+

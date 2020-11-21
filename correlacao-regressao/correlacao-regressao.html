@@ -17,8 +17,9 @@
     <header >
         <div class="container">
           <span class="logo">
-          <h1>Grupo 09</h1>
-          </span>
+            <h1>9G</h1>
+            <h2>Group Nine</h2>
+            </span>
           
           <nav class="menu">
             <ul>
@@ -32,10 +33,18 @@
         </div>
       </header>
     
+      <div class="content">
+        <span class="text-just">
+          CORRELAÇÃO E REGRESSÃO: A técnica que estima a relação entre duas variáveis em uma população ou amostra é a Correlação. A regressão usa os dados da correlação para uma fórmula que irá apresentar o grau de dependência entre estas variáveis.
+        </span>
+      </div>
     <div class="content">
       <div>
         <h1>Correlacao e Regressao</h1>
         <div>
+          <div class="dialog">
+            Preencha os dados separando com ponto e virgula e não dê espaços. Exemplo: 1;2;3
+          </div>
             <br>
                 <label>Valor X</label>
                 <input type="text" id="valor_x" name="valor_x" placeholder="Digite o valor X" size="30">
@@ -53,6 +62,16 @@
             <br>
                 <div id="texto_regressao"></div>
                 <div id="texto_correlacao"></div>
+                <p>
+                  <p id="projecao_futura"></p>
+                  <select id="selectprojecao" style="display:none;">
+                    <option id="X">X</option>
+                    <option id="Y">Y</option>
+                  </select>
+                </p>
+                <input type="number" id="valorprojecao" name="valorprojecao" style="display:none;" placeholder="Digite o valor para projeção"></div>
+                <p><button id="botãoprojecao" style="display:none;" onclick="calcularRegressao()">Calcular Projeção</button></p>
+                <p id="resultadoprojecao"></p>
             </br>
             <div id="myChart" style="width: 900px; height: 500px;"></div>
             </div>
@@ -65,7 +84,7 @@
         </div>
     </div>
     <footer class="footer">
-      Todos os Direitos Reservados
+      Todos os Direitos Reservados-"9G_GroupNine" Franca/SP-©2020
     </footer>
 
 </body>

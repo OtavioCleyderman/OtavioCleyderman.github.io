@@ -1,5 +1,6 @@
-//Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
-// Distribuição Uniforme - implementação até o dia 26/10/2020 //
+//  Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
+// Distribuição Uniforme - implementação até o dia 26/10/2020                   //
+
 function calcular() {
     let inicial = document.getElementById("inicial").value;
     let final = document.getElementById("final").value;
@@ -29,24 +30,8 @@ function calcular() {
     texto_dp.innerHTML = `Desvio Padrão: ${dp.toFixed(2)} <br>`
 }
 
-
-function calcularMedia(valor_inicial, valor_final) {
-    var media = (parseFloat(valor_inicial) + parseFloat(valor_final)) / 2;
-
-    return media;
-}
-
-function desviopadrao(variancia) {
-    let dp = Math.sqrt(variancia);
-
-    return dp;
-}
-
-function variancia(valor_inicial, valor_final) {
-    let valor_variancia = ((parseFloat(valor_final) - parseFloat(valor_inicial)) * (parseFloat(valor_final) - parseFloat(valor_inicial)) / 12)
-
-    return valor_variancia;
-}
+ //-----------------------------------------------------------------------------------------//
+//---------------------------Funções de Probabilidade-------------------------------------//
 
 function maior(valor_inicial, valor_final){
     let valor_intervalo = document.getElementById("valor_intervalo").value;
@@ -73,3 +58,25 @@ function menor(valor_inicial, valor_final){
     return probabilidade;
 
 }
+
+//----------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------//
+
+function calcularMedia(valor_inicial, valor_final) {
+    var media = (parseFloat(valor_inicial) + parseFloat(valor_final)) / 2;
+
+    return media;
+}
+
+function desviopadrao(variancia) {
+    let dp = Math.sqrt(variancia);
+
+    return dp;
+}
+
+function variancia(valor_inicial, valor_final) {
+    let valor_variancia = ((parseFloat(valor_final) - parseFloat(valor_inicial)) * (parseFloat(valor_final) - parseFloat(valor_inicial)) / 12)
+
+    return valor_variancia;
+}
+
