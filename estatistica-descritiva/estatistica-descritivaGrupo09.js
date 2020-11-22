@@ -1,5 +1,5 @@
-//    Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020                                //
-//   Implementação dos botões de inserção até o dia 07/09/2020                                                     //
+//  Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020                                 //
+//  Implementação dos botões de inserção até o dia 07/09/2020                                                      //
 //  Implementação das tabelas(FI,fr%,fac,fac%) até o dia 14/09/2020                                               //
 //  Implementação medidas separatrizes até o dia 28/09/2020                                                      //
 //  Implementação média,moda e mediana até o dia 29/09/2020                                                     //
@@ -81,7 +81,7 @@ function tratamentoDeDados() {
   //                     Divide os dados em ordem alfabetica                      //
   array_dados_variavel = Ordem(array_dados_variavel);
   //                     Calcula a quantidade de cada item                       //
-  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => { //arrow function //
+  const quantidade_dados = array_dados_variavel.reduce((acumulador, atual) => { //arrow function ou função flecha //
     acumulador[atual] = acumulador[atual] ? acumulador[atual] + 1 : 1;
     return acumulador;
   }, {});
@@ -90,7 +90,7 @@ function tratamentoDeDados() {
   let array_valores = [];
   // O contador auxiliar, percorre todos os nomes digitados e adiciona na array final que será ordenada alfabeticamente //
   let valor_anterior;
-  array_dados_variavel.forEach((dados_variavel) => {
+  array_dados_variavel.forEach((dados_variavel) => { //arrow function ou função flecha //
     if (dados_variavel != valor_anterior) {
       array_valores.push({
         valor: dados_variavel,
@@ -101,13 +101,13 @@ function tratamentoDeDados() {
   });
 
   let total_dados = [];
-  array_valores.forEach((t) => {
+  array_valores.forEach((t) => { //arrow function ou função flecha //
     total_dados.push(parseFloat(t.qtde));
   });
 
   //                Somatório total                //
   let resultado = total_dados.reduce(
-    (acumulador, item) => acumulador + item,
+    (acumulador, item) => acumulador + item, //arrow function ou função flecha //
     0
   );
 
@@ -115,7 +115,7 @@ function tratamentoDeDados() {
   let k = 0;
   let l = 0;
   //           Primeiro valor, enquanto percorre, soma quantidade         //
-  array_valores.forEach((element) => { //arrow function //
+  array_valores.forEach((element) => { //arrow function ou função flecha //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
   //   Caso base, seja primeira vez no laço, o FA é o valor do item mesmo          //
@@ -163,7 +163,7 @@ function tratamentoDeDadosNominal() {
   let array_valores = [];
   //  Contador auxiliar, percorre todos os nomes digitados e adicionar na array final que será ordenada alfabeticamente //
   let valor_anterior;
-  array_dados_variavel.forEach((dados_variavel) => {
+  array_dados_variavel.forEach((dados_variavel) => { //arrow function ou função flecha //
     if (dados_variavel != valor_anterior) {
       array_valores.push({
         valor: dados_variavel,
@@ -174,7 +174,7 @@ function tratamentoDeDadosNominal() {
   });
 
   let total_dados = [];
-  array_valores.forEach((t) => {
+  array_valores.forEach((t) => { //arrow function ou função flecha //
     total_dados.push(parseFloat(t.qtde));
   });
 
@@ -239,7 +239,7 @@ function tratamentoDeDadosOrdinal() {
   let array_valores = [];
   // Contador auxiliar, percorre todos os nomes digitados e adicionar na array final que será ordenada alfabeticamente //
   let valor_anterior;
-  array_dados_variavel.forEach((dados_variavel) => {
+  array_dados_variavel.forEach((dados_variavel) => { //arrow function ou função flecha //
     if (dados_variavel != valor_anterior) {
       array_valores.push({
         valor: dados_variavel,
@@ -254,7 +254,7 @@ function tratamentoDeDadosOrdinal() {
   //Ordena de acordo com usuário                                              //
   //Percorrer array de valores e verificar se são iguais aos dados ordenados //
 
-  ordem_dados.forEach((valor) => { //arrow function //
+  ordem_dados.forEach((valor) => { //arrow function ou função flecha //
     if (array_dados_variavel.includes(valor) !== true) {
       dados_incorretos = true;
       return;
@@ -267,7 +267,7 @@ function tratamentoDeDadosOrdinal() {
   }
 
   let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
+  ordem_dados.forEach((valor_ordem) => { //arrow function ou função flecha //
     array_valores.forEach((item) => {
       if (item.valor === valor_ordem) {
         array_valores_ordenado.push(item);
@@ -276,7 +276,7 @@ function tratamentoDeDadosOrdinal() {
   });
 
   let total_dados = [];
-  array_valores_ordenado.forEach((t) => {
+  array_valores_ordenado.forEach((t) => { //arrow function ou função flecha //
     total_dados.push(parseFloat(t.qtde));
   });
 
@@ -290,7 +290,7 @@ function tratamentoDeDadosOrdinal() {
   let k = 0;
   let l = 0;
   //     O primeiro valor, enquanto percorre, soma quantidade //
-  array_valores_ordenado.forEach((element) => { //arrow function //
+  array_valores_ordenado.forEach((element) => { //arrow function ou função flecha //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
     //    Caso base, seja primeira vez no laço o FA eh o valor do item mesmo         //
@@ -401,7 +401,7 @@ function criarTabelaOrd() {
   let texto_coeficiente = document.getElementById('texto_coeficiente_variacao');
   texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
   // Cria uma linha <tr>, com algumas colunas (células) <td>,depois dá pra utiliar aqui em abaixo //
-  array_valores.forEach((e) => { //arrow function //
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -428,7 +428,8 @@ function criarTabelaOrd() {
   gerarGraficoQualitativaOrdinal();
 }
 
-//    Função geradora do grafico Ordinal        //
+//          Função geradora do grafico Ordinal            //
+
 function gerarGraficoQualitativaOrdinal() {
   array_valores = tratamentoDeDadosOrdinal();
   array_label = [];
@@ -436,7 +437,7 @@ function gerarGraficoQualitativaOrdinal() {
   colors = [];
 
   //    Pode se gerar as cores tambem aqui     //
-  array_valores.forEach((e) => {
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     array_label.push(e.valor);
     array_data.push(e.fr_porcento);
     colors.push(getRandomColor());
@@ -559,7 +560,7 @@ function criarTabelaDiscreta() {
   // Arrow Function: let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0); //
   
 
-  array_valores.forEach((e) => { //arrow function //
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -586,7 +587,7 @@ function criarTabelaDiscreta() {
   gerarGraficoDiscreta();
 }
 
-//    Função geradora do gráfico     //
+//    Função geradora do gráfico da Quantitativa Discreta    //
 function gerarGraficoDiscreta() {
   array_valores = tratamentoDeDados();
   array_label = [];
@@ -594,7 +595,7 @@ function gerarGraficoDiscreta() {
   colors = [];
 
   //      Pode se gerar as cores aqui tambem       //
-  array_valores.forEach((e) => { //arrow function //
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     array_label.push(e.valor);
     array_data.push(Math.round(e.fr_porcento));
     colors.push(getRandomColor());
@@ -638,11 +639,11 @@ function media(valores) {
 
   //  Cálculo de média para as variáveis discreta e continua   //
   let total_qtde = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde,  // arrow function //
+    (acumulador, item) => acumulador + item.qtde,  // arrow function ou função flecha //
     0
   );
   let total_valores = valores.reduce(
-    (acumulador, item) => acumulador + item.valor * item.qtde, // arrow function //
+    (acumulador, item) => acumulador + item.valor * item.qtde, // arrow function ou função flecha //
     0
   );
   let media = total_valores / total_qtde;
@@ -704,12 +705,12 @@ function mediana() {
 function desvioPadraoAmostra(valores, media) {
   //       Somatorio FI           //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde, // arrow function //
+    (acumulador, item) => acumulador + item.qtde, //arrow function ou função flecha //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) => acumulador + Math.pow(item.valor - media, 2) * item.qtde, // arrow function //
+    (acumulador, item) => acumulador + Math.pow(item.valor - media, 2) * item.qtde, //arrow function ou função flecha //
     0
   );
 
@@ -723,12 +724,12 @@ function desvioPadraoAmostra(valores, media) {
 function desvioPadraoPopulacao(valores, media) {
   //        Somatorio FI          //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde, //arrow function //
+    (acumulador, item) => acumulador + item.qtde, //arrow function ou função flecha //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) => // arrow function //
+    (acumulador, item) => // arrow function ou função flecha //
       acumulador + Math.pow(item.valor - media, 2) * item.qtde,
     0
   );
@@ -775,7 +776,7 @@ function criarTabelaNom() {
   texto_coeficiente.innerHTML = `Coeficiente de Variacao: Nao tem <b>`;
   // Esse loop cria uma linha <tr> com algumas colunas (células) <td>, depois dá para utilizar aqui abaixo //
 
-  array_valores.forEach((e) => { //arrow function //
+  array_valores.forEach((e) => { // arrow function ou função flecha //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -803,6 +804,7 @@ function criarTabelaNom() {
   gerarGraficoQualitativaNominal();
 }
 
+// Função geradora do gráfico da Qualitativa Nominal //
 function gerarGraficoQualitativaNominal() {
   array_valores = tratamentoDeDadosNominal();
   array_label = [];
@@ -810,7 +812,7 @@ function gerarGraficoQualitativaNominal() {
   colors = [];
 
   //  Pode se gerar as cores aqui tambem   //
-  array_valores.forEach((e) => { // arrow function //
+  array_valores.forEach((e) => { // arrow function ou função flecha //
     array_label.push(e.valor);
     array_data.push(e.fr_porcento);
     colors.push(getRandomColor());
@@ -880,7 +882,7 @@ function tratamentoDeDadosContinua() {
     let limite_classe = valor_anterior + intervalo_classes;
 
     qtde_itens_intervalo = array_dados_variavel.filter(
-      (item) => item >= valor_anterior && item < limite_classe
+      (item) => item >= valor_anterior && item < limite_classe //arrow function ou função flecha //
     );
     array_final_continua.push({
       valor: `${valor_anterior} |----- ${limite_classe}`,
@@ -909,7 +911,7 @@ function tratamentoDeDadosContinua() {
   let k = 0;
   let l = 0;
   //    O primeiro valor, enquanto percorre, soma quantidade       //
-  array_final_continua.forEach((element) => { // arrow function //
+  array_final_continua.forEach((element) => { // arrow function ou função flecha //
     element.fi = element.qtde;
     element.fr_porcento = (element.qtde * 100) / resultado;
     //    Caso base, caso seja primeira vez no laço o FA é o valor do item mesmo  //
@@ -981,7 +983,7 @@ function criarTabelaContinua() {
   //  let soma_total = array_valores.reduce((soma_total, array_valores) => soma_total + array_valores, 0);        //
   //   console.log(soma_total);   //
 
-  array_valores.forEach((e) => { //arrow function //
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     let linha = document.createElement('tr');
     let campoDados = document.createElement('tr');
     let campo_fr_porcento = document.createElement('td');
@@ -1016,12 +1018,12 @@ function criarTabelaContinua() {
 
 function mediaContinua(valores) {
   let total_qtde = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde, // arrow function //
+    (acumulador, item) => acumulador + item.qtde, //arrow function ou função flecha //
     0
   );
 
   let total_valores = valores.reduce(
-    (acumulador, item) => acumulador + item.xi * item.qtde, // arrow function //
+    (acumulador, item) => acumulador + item.xi * item.qtde, //arrow function ou função flecha //
     0
   );
 
@@ -1033,12 +1035,12 @@ function mediaContinua(valores) {
 function desvioPadraoPopulacaoContinua(valores, media) {
   //    Somatório de FI    //
   let somatorio_fi = valores.reduce(
-    (acumulador, item) => acumulador + item.qtde, // arrow function //
+    (acumulador, item) => acumulador + item.qtde, //arrow function ou função flecha //
     0
   );
 
   let somatorio_valores = valores.reduce(
-    (acumulador, item) => acumulador + Math.pow(item.xi - media, 2) * item.qtde, // arrow function //
+    (acumulador, item) => acumulador + Math.pow(item.xi - media, 2) * item.qtde, //arrow function ou função flecha //
     0
   );
 
@@ -1048,14 +1050,14 @@ function desvioPadraoPopulacaoContinua(valores, media) {
 }
 
 //----------------------------------------------------------------------------------//
-
+// Função geradora dos gráficos da Quantitativa Continua //
 function gerarGraficoContinua() {
   let array_valores = tratamentoDeDadosContinua();
   let array_label = [];
   let array_data = [];
   let nome_variavel = document.getElementById('nome_variavel').value;
 
-  array_valores.forEach((e) => {
+  array_valores.forEach((e) => { //arrow function ou função flecha //
     array_label.push(e.valor);
     array_data.push(e.qtde);
   });
@@ -1284,8 +1286,8 @@ function quartilOrdinal() {
     .value.split(';');
   let ordem_dados = document.getElementById('ordem_valores').value.split(';');
   let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
-    array_valores.forEach((item) => {
+  ordem_dados.forEach((valor_ordem) => { //arrow function ou função flecha //
+    array_valores.forEach((item) => { //arrow function ou função flecha //
       if (item === valor_ordem) {
         array_valores_ordenado.push(item);
       }
@@ -1306,8 +1308,8 @@ function quintilOrdinal() {
     .value.split(';');
   let ordem_dados = document.getElementById('ordem_valores').value.split(';');
   let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
-    array_valores.forEach((item) => {
+  ordem_dados.forEach((valor_ordem) => { //arrow function ou função flecha //
+    array_valores.forEach((item) => { //arrow function ou função flecha //
       if (item === valor_ordem) {
         array_valores_ordenado.push(item);
       }
@@ -1328,8 +1330,8 @@ function decilOrdinal() {
     .value.split(';');
   let ordem_dados = document.getElementById('ordem_valores').value.split(';');
   let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
-    array_valores.forEach((item) => {
+  ordem_dados.forEach((valor_ordem) => { //arrow function ou função flecha //
+    array_valores.forEach((item) => { //arrow function ou função flecha //
       if (item === valor_ordem) {
         array_valores_ordenado.push(item);
       }
@@ -1350,8 +1352,8 @@ function percentilOrdinal() {
     .value.split(';');
   let ordem_dados = document.getElementById('ordem_valores').value.split(';');
   let array_valores_ordenado = [];
-  ordem_dados.forEach((valor_ordem) => {
-    array_valores.forEach((item) => {
+  ordem_dados.forEach((valor_ordem) => { //arrow function ou função flecha //
+    array_valores.forEach((item) => { //arrow function ou função flecha //
       if (item === valor_ordem) {
         array_valores_ordenado.push(item);
       }

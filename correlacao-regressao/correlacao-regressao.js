@@ -21,7 +21,7 @@ function dadosY () {
 function somatorioX() {
     const valor_x = dadosX();
     let total_x = valor_x.reduce(
-        (acumulador, item) => acumulador + item,
+        (acumulador, item) => acumulador + item, //arrow function ou função flecha //
         0
       );
     
@@ -31,7 +31,7 @@ function somatorioX() {
 function somatorioY() {
     const valor_y = dadosY()
     let total_y = valor_y.reduce(
-        (acumulador, item) => acumulador + item,
+        (acumulador, item) => acumulador + item, //arrow function ou função flecha //
         0
       );
 
@@ -40,10 +40,10 @@ function somatorioY() {
 //      Função para fazer a soma de X²  //
 function somatorioXisQuadrado(){
     const valor_x = dadosX();
-    const quadrado_elemento = valor_x.map((elemento) => elemento ** 2);
+    const quadrado_elemento = valor_x.map((elemento) => elemento ** 2); //arrow function ou função flecha //
 
     let total_quadrado = quadrado_elemento.reduce(
-        (acumulador, item) => acumulador + item,
+        (acumulador, item) => acumulador + item, //arrow function ou função flecha //
         0
       );
 
@@ -53,9 +53,9 @@ function somatorioXisQuadrado(){
 //      Função para fazer a soma de Y²  //
 function somatorioYQuadrado() {
     let valor_y = dadosY();
-    const quadrado_elemento = valor_y.map((elemento) => elemento ** 2); // arrow function //
+    const quadrado_elemento = valor_y.map((elemento) => elemento ** 2); //arrow function ou função flecha //
     let total_quadrado = quadrado_elemento.reduce(
-        (acumulador, item) => acumulador + item,
+        (acumulador, item) => acumulador + item, //arrow function ou função flecha //
         0
       );
     
@@ -163,7 +163,7 @@ function drawChart() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'X');
     data.addColumn('number', 'Y');
-    valor_x.forEach((x, idx) => {
+    valor_x.forEach((x, idx) => { //arrow function ou função flecha //
         data.addRows([
             [x, valor_y[idx]],
         ]);

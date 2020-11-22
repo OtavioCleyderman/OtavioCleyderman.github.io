@@ -33,6 +33,15 @@ function calcular() {
  //-----------------------------------------------------------------------------------------//
 //---------------------------Funções de Probabilidade-------------------------------------//
 
+function menor(valor_inicial, valor_final){
+    let valor_intervalo = document.getElementById("valor_intervalo").value;
+    let intervalo = (valor_intervalo - valor_inicial);
+    let probabilidade = ((1 / (valor_final - valor_inicial)) * intervalo) * 100;
+   
+    return probabilidade;
+
+}
+
 function maior(valor_inicial, valor_final){
     let valor_intervalo = document.getElementById("valor_intervalo").value;
     let intervalo = (valor_final - valor_intervalo);
@@ -50,28 +59,20 @@ function entre(valor_inicial, valor_final){
     return probabilidade;
 }
 
-function menor(valor_inicial, valor_final){
-    let valor_intervalo = document.getElementById("valor_intervalo").value;
-    let intervalo = (valor_intervalo - valor_inicial);
-    let probabilidade = ((1 / (valor_final - valor_inicial)) * intervalo) * 100;
-   
-    return probabilidade;
-
-}
 
 //----------------------------------------------------------------------------------------//
 //---------------------------------------------------------------------------------------//
-
-function calcularMedia(valor_inicial, valor_final) {
-    var media = (parseFloat(valor_inicial) + parseFloat(valor_final)) / 2;
-
-    return media;
-}
 
 function desviopadrao(variancia) {
     let dp = Math.sqrt(variancia);
 
     return dp;
+}
+
+function calcularMedia(valor_inicial, valor_final) {
+    var media = (parseFloat(valor_inicial) + parseFloat(valor_final)) / 2;
+
+    return media;
 }
 
 function variancia(valor_inicial, valor_final) {

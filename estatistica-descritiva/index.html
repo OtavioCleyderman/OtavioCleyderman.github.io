@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="estatistica-descritivaGrupo09.js"></script>
   <link rel="stylesheet" href="../assets/css/stylesite.css">
@@ -23,7 +24,7 @@
         <nav class="menu">
           <ul>
             <li><a href="../index.html">Home</a></li>
-            <li style="font-weight: 700; color:#1363b3;">Estatistica Descritiva</a></li>
+            <li style="font-weight: 700; color:#1363b3;">Estatística Descritiva</a></li>
             <li><a href="../distribuicao/distribuicao.html">Probabilidade</li>
             <li><a href="../correlacao-regressao/correlacao-regressao.html">Correlação Regressão</a></li>
             <li><a href="../sobre.html">Sobre Nós</a></li>
@@ -31,13 +32,25 @@
         </nav>
       </div>
     </header>
-  
+
+   <div class="content">
+     <br>
+    <div  class="row">
+      <div class="dialog" style="background-color: #fffcf9">
+        <h1  style="font-size:18px">Preencha os dados separando com ponto e virgula e não dê espaços. Exemplo: amarelo;verde;vermelho</h1>
+      </div>
+    </div>
+      <input type="file" name="upload-csv" id="arquivo" />
+      <button class="btn btn-primary" id="btn-upload-csv" onclick="lerCSV()">Arquivo</button>
+
+     <br>
+
   <div class="content">
-      <h1>Estatística Descritiva</h1>
+    <h1 h1 style="font-size:27px">ESTATÍSTICA  DESCRITIVA</h1>
       <div class="variavel">
         <p class="nome_variavel">
           Nome da Variável:
-          <input type="text" id="nome_variavel" placeholder="Nome da variável" />
+          <input type="form-control" id="nome_variavel" placeholder="Nome da variável" />
         </p>
         <p class="dados_variavel" style="margin-left: 15px;">
           Dados para Análise:
@@ -48,16 +61,8 @@
           />
         </p>
       </div>
-      <div  class="content-right">
-        <div class="dialog">
-          Preencha os dados separando com ponto e virgula e não dê espaços. Exemplo: amarelo;verde;vermelho
-        </div>
-        <input type="file" name="upload-csv" id="arquivo" />
-        <button id="btn-upload-csv" onclick="lerCSV()">
-          Ler os dados do arquivo</button
-        >
-      </div>
-      <p>
+
+
         
           <select name="tipo_desvio" id="tipo_desvio">
             <option value="amostra" id="amostra">Amostra</option>
@@ -134,6 +139,7 @@
       >
         <canvas id="myChart"></canvas>
       </div>
+
       <div>
         <select
           name="tipo_separatriz"
@@ -174,6 +180,6 @@
   <footer class="footer" style="margin-top: 317px;">
     Todos os Direitos Reservados-"9G_GroupNine" Franca/SP-©2020
   </footer>
-    
+   </div>
   </body>
 </html>

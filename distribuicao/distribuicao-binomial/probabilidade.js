@@ -1,7 +1,7 @@
 //Trabalho de Estatistica/Prof Me Maria Luisa - Grupo 09/Segundo semestre de 2020//
 // Distribuição Binomial - implementação até o dia 26/10/2020 //
 
-const fatorial = n => { // arrow function //
+const fatorial = n => { // arrow function ou função flecha //
     if (n > 1) {
         return n * fatorial(n - 1)
     }
@@ -34,7 +34,7 @@ function DistribuicaoBinomial() {
     texto_coeficiente_variancia.innerHTML = `Coeficiente Variância: ${coeficiente_variancia.toFixed(2)} % <br>`;
 
     let probabilidade_total = 0;
-    evento.forEach((e) => { // arrow function //
+    evento.forEach((e) => { // arrow function ou função flecha //
         let fatorial_numerador = (fatorial(e)) * (fatorial(n - e));
         let analisecombinatoria = (fatorial(n) / fatorial_numerador);
 
